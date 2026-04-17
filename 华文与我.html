@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>华文与我</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #db3434; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #b92929; border-bottom: 1px solid #f8d6d6; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #db3434; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fdf2f2; border-color: #db3434; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>华文与我</h1>
+    <p class="instruction">请回答所有10道题目以解锁提交按钮。</p>
+
+    <form id="quizForm">
+        <h3 class="section-title">第一部分：选择题 (MCQ)</h3>
+        
+        <div class="question-block">
+            <span class="q-text">1. 视频中的女孩来自哪个国家？</span>
+            <label><input type="radio" name="q0" value="0" onchange="checkAll()"> 她来自中国，因为她的中文说得非常标准。</label>
+            <label><input type="radio" name="q0" value="1" onchange="checkAll()"> 她来自伊朗，出生在一个普通的家庭。</label>
+            <label><input type="radio" name="q0" value="0" onchange="checkAll()"> 她来自新加坡，正在学习第二语言。</label>
+            <label><input type="radio" name="q0" value="0" onchange="checkAll()"> 她来自美国，是一名职业高中的学生。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">2. 伊朗的公立学校在教育费用方面有什么特点？</span>
+            <label><input type="radio" name="q1" value="0" onchange="checkAll()"> 学生需要支付昂贵的学费才能进入职业高中。</label>
+            <label><input type="radio" name="q1" value="1" onchange="checkAll()"> 从小学到大学，公立学校的学习都是免费的。</label>
+            <label><input type="radio" name="q1" value="0" onchange="checkAll()"> 只有成绩最好的学生才能获得免费上学的机会。</label>
+            <label><input type="radio" name="q1" value="0" onchange="checkAll()"> 公立学校不提供职业教育，只有普通高中有补助。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">3. 职业高中的课程内容主要侧重于什么？</span>
+            <label><input type="radio" name="q2" value="0" onchange="checkAll()"> 课程主要侧重于文化课和历史研究。</label>
+            <label><input type="radio" name="q2" value="0" onchange="checkAll()"> 老师会专门培养学生参加全国的高考。</label>
+            <label><input type="radio" name="q2" value="1" onchange="checkAll()"> 授课内容更加偏向于技能培训和职业内容。</label>
+            <label><input type="radio" name="q2" value="0" onchange="checkAll()"> 学生每天只需练习中文发音，不需要学其她技术。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">4. 是谁的话让主角下定决心要学习中文？</span>
+            <label><input type="radio" name="q3" value="1" onchange="checkAll()"> 她的世界历史老师说，想要变有钱就去学中文。</label>
+            <label><input type="radio" name="q3" value="0" onchange="checkAll()"> 她的父母鼓励她，认为中国是一个美丽的国家。</label>
+            <label><input type="radio" name="q3" value="0" onchange="checkAll()"> 她的中国朋友建议她，未来的世界属于中国。</label>
+            <label><input type="radio" name="q3" value="0" onchange="checkAll()"> 德黑兰大学的教授亲自到高中选拔中文人才。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">5. 为了考上大学的中文专业，主角做了哪些努力？</span>
+            <label><input type="radio" name="q4" value="0" onchange="checkAll()"> 她每天只在家里自学，没有参加任何补习班。</label>
+            <label><input type="radio" name="q4" value="0" onchange="checkAll()"> 她直接放弃了职业高中的课程，全心练习中文发音。</label>
+            <label><input type="radio" name="q4" value="1" onchange="checkAll()"> 她疯狂地补习职业高中所缺少的那些文化课。</label>
+            <label><input type="radio" name="q4" value="0" onchange="checkAll()"> 她申请了奖学金，先去中国留学后再回来考试。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">6. 主角第一次听到汉语的发音时有什么感觉？</span>
+            <label><input type="radio" name="q5" value="0" onchange="checkAll()"> 她觉得汉语发音非常奇怪，而且很难学会。</label>
+            <label><input type="radio" name="q5" value="1" onchange="checkAll()"> 她感觉汉语特别好听，像是找到了前世的母语。</label>
+            <label><input type="radio" name="q5" value="0" onchange="checkAll()"> 她觉得发音太简单了，不需要花费太多时间练习。</label>
+            <label><input type="radio" name="q5" value="0" onchange="checkAll()"> 她感到非常后悔，因为发音练习让她的舌头很酸。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">7. 主角每天如何练习发音？</span>
+            <label><input type="radio" name="q6" value="1" onchange="checkAll()"> 她每天不分白天黑夜地苦练，甚至一整天练习一个音。</label>
+            <label><input type="radio" name="q6" value="0" onchange="checkAll()"> 她只在中文课上跟着老师朗读，课后就休息。</label>
+            <label><input type="radio" name="q6" value="0" onchange="checkAll()"> 她每天只练习十分钟，因为她很有语言天赋。</label>
+            <label><input type="radio" name="q6" value="0" onchange="checkAll()"> 她每天去职业高中向同学们展示她的中文水平。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">8. 对于经济条件普通的她来说，出国留学的唯一途径是什么？</span>
+            <label><input type="radio" name="q7" value="0" onchange="checkAll()"> 唯一的途径是打工攒钱，等到存够了钱再去中国。</label>
+            <label><input type="radio" name="q7" value="0" onchange="checkAll()"> 她需要向亲戚朋友借钱来支付昂贵的留学费用。</label>
+            <label><input type="radio" name="q7" value="1" onchange="checkAll()"> 唯一的途径就是通过努力学习来申请到奖学金。</label>
+            <label><input type="radio" name="q7" value="0" onchange="checkAll()"> 她决定在中国寻找一份技能工作，自给自足。</label>
+        </div>
+
+        <h3 class="section-title">第二部分：简答题</h3>
+
+        <div class="question-block">
+            <span class="q-text">9. 为什么主角在视频最后说“努力不一定会成功，但人生会充满更多可能性”？</span>
+            <textarea id="q8_text" oninput="checkAll()" placeholder="请写出完整的句子..."></textarea>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">10. 看了这个视频，你觉得自己应该如何学习华文？</span>
+            <textarea id="q9_text" oninput="checkAll()" placeholder="请写出完整的句子..."></textarea>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">提交结果</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    function checkAll() {
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 0 && q10Val.length > 0) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        let emailBody = "--- P3 华文理解测试结果 breakdown ---\n\n";
+        
+        const correctDetails = [
+            { text: "她来自伊朗，出生在一个普通的家庭。", letter: "B" },
+            { text: "从小学到大学，公立学校的学习都是免费的。", letter: "B" },
+            { text: "授课内容更加偏向于技能培训和职业内容。", letter: "C" },
+            { text: "她的世界历史老师说，想要变有钱就去学中文。", letter: "A" },
+            { text: "她疯狂地补习职业高中所缺少的那些文化课。", letter: "C" },
+            { text: "她感觉汉语特别好听，像是找到了前世的母语。", letter: "B" },
+            { text: "她每天不分白天黑夜地苦练，甚至一整天练习一个音。", letter: "A" },
+            { text: "唯一的途径就是通过努力学习来申请到奖学金。", letter: "C" }
+        ];
+
+        const questionsText = [
+            "视频中的主角来自哪个国家？",
+            "伊朗的公立学校在教育费用方面有什么特点？",
+            "职业高中的课程内容主要侧重于什么？",
+            "是谁的话让主角下定决心要学习中文？",
+            "为了考上大学的中文专业，主角做了哪些努力？",
+            "主角第一次听到汉语的发音时有什么感觉？",
+            "主角每天如何练习发音？",
+            "对于经济条件普通的她来说，出国留学的唯一途径是什么？"
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const isCorrect = selected.value === "1";
+            if(isCorrect) score++;
+            
+            emailBody += `问题 ${i+1}: ${questionsText[i]}\n`;
+            emailBody += `你的答案: ${selected.parentElement.textContent.trim()} ${isCorrect ? "正确 (✓)" : "错误 (X)"}\n`;
+            if (!isCorrect) {
+                emailBody += `正确答案: (${correctDetails[i].letter})\n`;
+            }
+            emailBody += "\n";
+        }
+
+        const q9Text = "为什么主角在视频最后说“努力不一定会成功，但人生会充满更多可能性”？";
+        const q10Text = "看了这个视频，你觉得自己应该如何学习华文？";
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `问题 9: ${q9Text}\n书写答案: ${q9Answer}\n\n`;
+        emailBody += `问题 10: ${q10Text}\n书写答案: ${q10Answer}\n\n`;
+        emailBody += `选择题总分: ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=Detailed Quiz Results: Chinese Study&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">测试完成！得分: ${score}/8</h2>
+            <p>您的详细报告已发送至 <strong>${email}</strong>。</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">点击发送邮件报告</a></p>
+            <hr>
+            <p style="font-size: 0.85em; color: #666;">如果邮件应用未打开，请手动复制以下文本：</p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>
