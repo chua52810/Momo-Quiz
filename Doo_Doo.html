@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>P3 English Comprehension: Doo Doo</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #3498db; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #2980b9; border-bottom: 1px solid #d6eaf8; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #3498db; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #e8f4fd; border-color: #3498db; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>P3 English Comprehension: Doo Doo</h1>
+    <p class="instruction">Complete all 8 MCQs and 2 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <h3 class="section-title">Part A: Multiple Choice Questions</h3>
+        
+        <div class="question-block">
+            <span class="q-text">1. Where was the woman visiting when the incident happened?</span>
+            <label><input type="radio" name="q0" value="0" onchange="checkAll()"> She was visiting a busy shopping mall in the middle of a big city.</label>
+            <label><input type="radio" name="q0" value="1" onchange="checkAll()"> She was visiting a remote meteorite crater in the Australian outback.</label>
+            <label><input type="radio" name="q0" value="0" onchange="checkAll()"> She was visiting a local park near her home in Canberra.</label>
+            <label><input type="radio" name="q0" value="0" onchange="checkAll()"> She was visiting a modern farm with many animals and flush toilets.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">2. What kind of toilet did the woman use?</span>
+            <label><input type="radio" name="q1" value="0" onchange="checkAll()"> It was a regular flush toilet that uses a lot of water to stay clean.</label>
+            <label><input type="radio" name="q1" value="1" onchange="checkAll()"> It was a long-drop toilet, which is a deep pit dug out to collect waste.</label>
+            <label><input type="radio" name="q1" value="0" onchange="checkAll()"> It was a portable toilet like the ones found at construction sites.</label>
+            <label><input type="radio" name="q1" value="0" onchange="checkAll()"> It was a high-tech toilet that uses electricity to wash and dry.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">3. Why did the woman fall into the pit?</span>
+            <label><input type="radio" name="q2" value="0" onchange="checkAll()"> She accidentally tripped over a rock while walking towards the toilet.</label>
+            <label><input type="radio" name="q2" value="0" onchange="checkAll()"> She was playing a game with her children and didn't see the hole.</label>
+            <label><input type="radio" name="q2" value="1" onchange="checkAll()"> The rusty floor of the toilet gave way beneath her feet when she entered.</label>
+            <label><input type="radio" name="q2" value="0" onchange="checkAll()"> The roof of the toilet fell down and pushed her into the deep pit.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">4. How long was the woman trapped in the pit before she was rescued?</span>
+            <label><input type="radio" name="q3" value="1" onchange="checkAll()"> She was trapped for three hours while her family looked for help.</label>
+            <label><input type="radio" name="q3" value="0" onchange="checkAll()"> She was only trapped for five minutes because help arrived immediately.</label>
+            <label><input type="radio" name="q3" value="0" onchange="checkAll()"> She spent a whole night in the pit before anyone could find her.</label>
+            <label><input type="radio" name="q3" value="0" onchange="checkAll()"> She was trapped for forty-five minutes while the tradesman used his car.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">5. What did the tradesman use to pull the woman out of the hole?</span>
+            <label><input type="radio" name="q4" value="0" onchange="checkAll()"> He used a long wooden ladder that he found in the back of his truck.</label>
+            <label><input type="radio" name="q4" value="0" onchange="checkAll()"> He called for a helicopter to lower a basket and lift her to safety.</label>
+            <label><input type="radio" name="q4" value="1" onchange="checkAll()"> He used a tow rope attached to his car to pull her out of the hole.</label>
+            <label><input type="radio" name="q4" value="0" onchange="checkAll()"> He reached down with his hands and lifted her out by himself.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">6. How deep was the pit the woman fell into?</span>
+            <label><input type="radio" name="q5" value="0" onchange="checkAll()"> The pit was only a few centimeters deep, so she could easily step out.</label>
+            <label><input type="radio" name="q5" value="1" onchange="checkAll()"> She fell two meters into the pit, which was filled with waste.</label>
+            <label><input type="radio" name="q5" value="0" onchange="checkAll()"> It was ten meters deep and required a very long rope to reach her.</label>
+            <label><input type="radio" name="q5" value="0" onchange="checkAll()"> The article does not say how deep the hole was, only that it was dark.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">7. Where was the woman taken after she was rescued?</span>
+            <label><input type="radio" name="q6" value="1" onchange="checkAll()"> She was taken to a hospital in Alice Springs to be checked by doctors.</label>
+            <label><input type="radio" name="q6" value="0" onchange="checkAll()"> She was taken back to her hotel to have a long, warm shower.</label>
+            <label><input type="radio" name="q6" value="0" onchange="checkAll()"> She was taken to the airport so she could fly home to Canberra immediately.</label>
+            <label><input type="radio" name="q6" value="0" onchange="checkAll()"> She went back to the meteorite crater to finish her family vacation.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">8. Who is investigating why the toilet floor collapsed?</span>
+            <label><input type="radio" name="q7" value="0" onchange="checkAll()"> The woman's husband and his friends are doing their own investigation.</label>
+            <label><input type="radio" name="q7" value="1" onchange="checkAll()"> NT WorkSafe, a body that enforces safety laws, is looking into the incident.</label>
+            <label><input type="radio" name="q7" value="0" onchange="checkAll()"> The local tradesman who rescued her is trying to find out what happened.</label>
+            <label><input type="radio" name="q7" value="0" onchange="checkAll()"> No one is investigating the incident because it was just a small accident.</label>
+        </div>
+
+        <h3 class="section-title">Part B: Written Answer Questions</h3>
+
+        <div class="question-block">
+            <span class="q-text">9. Why did the woman's husband have to drive up the highway to seek help?</span>
+            <textarea id="q8_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">10. How did the woman feel after the experience, according to the witness?</span>
+            <textarea id="q9_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results?</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    function checkAll() {
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 0 && q10Val.length > 0) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        let emailBody = "--- P3 ENGLISH QUIZ RESULTS BREAKDOWN ---\n\n";
+        
+        const correctDetails = [
+            { text: "She was visiting a remote meteorite crater in the Australian outback.", letter: "B" },
+            { text: "It was a long-drop toilet, which is a deep pit dug out to collect waste.", letter: "B" },
+            { text: "The rusty floor of the toilet gave way beneath her feet when she entered.", letter: "C" },
+            { text: "She was trapped for three hours while her family looked for help.", letter: "A" },
+            { text: "He used a tow rope attached to his car to pull her out of the hole.", letter: "C" },
+            { text: "She fell two meters into the pit, which was filled with waste.", letter: "B" },
+            { text: "She was taken to a hospital in Alice Springs to be checked by doctors.", letter: "A" },
+            { text: "NT WorkSafe, a body that enforces safety laws, is looking into the incident.", letter: "B" }
+        ];
+
+        const questionsText = [
+            "Where was the woman visiting when the incident happened?",
+            "What kind of toilet did the woman use?",
+            "Why did the woman fall into the pit?",
+            "How long was the woman trapped in the pit before she was rescued?",
+            "What did the tradesman use to pull the woman out of the hole?",
+            "How deep was the pit the woman fell into?",
+            "Where was the woman taken after she was rescued?",
+            "Who is investigating why the toilet floor collapsed?"
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const isCorrect = selected.value === "1";
+            if(isCorrect) score++;
+            
+            emailBody += `Question ${i+1}: ${questionsText[i]}\n`;
+            emailBody += `Your Answer: ${selected.parentElement.textContent.trim()} ${isCorrect ? "CORRECT (✓)" : "INCORRECT (X)"}\n`;
+            if (!isCorrect) {
+                emailBody += `Correct Answer: (${correctDetails[i].letter})\n`;
+            }
+            emailBody += "\n";
+        }
+
+        const q9QText = "Why did the woman's husband have to drive up the highway to seek help?";
+        const q10QText = "How did the woman feel after the experience, according to the witness?";
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `Question 9: ${q9QText}\nWritten answer: ${q9Answer}\n\n`;
+        emailBody += `Question 10: ${q10QText}\nWritten answer: ${q10Answer}\n\n`;
+        emailBody += `TOTAL MCQ SCORE: ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=Detailed Quiz Results: Doo Doo&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! Score: ${score}/8</h2>
+            <p>Your report is ready for <strong>${email}</strong>.</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Click to Send Email Report</a></p>
+            <hr>
+            <p style="font-size: 0.85em; color: #666;">If your email app didn't open, copy this text manually:</p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>
