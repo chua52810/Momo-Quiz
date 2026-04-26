@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>P3 华文理解：环保</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #27ae60; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #27ae60; border-bottom: 1px solid #d4edda; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #27ae60; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #f1f9f4; border-color: #27ae60; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>P3 华文理解：环保</h1>
+    <p class="instruction">请完成所有8道选择题和2道简答题以解锁提交按钮。</p>
+
+    <form id="quizForm">
+        <h3 class="section-title">第一部分：选择题 (MCQ)</h3>
+        
+        <div class="question-block">
+            <span class="q-text">1. 漫画开头提到城市环境让一切都变得怎么样？</span>
+            <label><input type="radio" name="q0" value="0" onchange="checkAll()"> 城市环境让大家的生活变得非常辛苦，到处都是垃圾。</label>
+            <label><input type="radio" name="q0" value="1" onchange="checkAll()"> 城市环境让一切都变得很方便，大家感觉生活很舒适。</label>
+            <label><input type="radio" name="q0" value="0" onchange="checkAll()"> 城市环境让人们变得很不快乐，因为大家都要工作。</label>
+            <label><input type="radio" name="q0" value="0" onchange="checkAll()"> 城市环境让人们不再需要喝水，大家都很健康。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">2. 漫画中提到人们感觉现在拥有的资源是怎样的？</span>
+            <label><input type="radio" name="q1" value="0" onchange="checkAll()"> 人们觉得地上的资源非常少，大家都要省着用。</label>
+            <label><input type="radio" name="q1" value="1" onchange="checkAll()"> 感觉上，人们觉得现在所拥有的资源都是无限的。</label>
+            <label><input type="radio" name="q1" value="0" onchange="checkAll()"> 人们觉得水资源很快就会用完，大家都很担心。</label>
+            <label><input type="radio" name="q1" value="0" onchange="checkAll()"> 感觉上，人们觉得大自然的东西都是要花钱买的。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">3. 漫画中提到“一切都与源头脱离了”，这是什么意思？</span>
+            <label><input type="radio" name="q2" value="0" onchange="checkAll()"> 意思是人们每天都要去森林里寻找食物和水。</label>
+            <label><input type="radio" name="q2" value="0" onchange="checkAll()"> 意思是所有的东西都是从水龙头里直接变出来的。</label>
+            <label><input type="radio" name="q2" value="1" onchange="checkAll()"> 意思是我们拿到的东西都是包装好的，不知道它们来自大自然。</label>
+            <label><input type="radio" name="q2" value="0" onchange="checkAll()"> 意思是人们不再需要大自然，因为我们有塑料袋。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">4. 在变成香肠之前，它原本是什么？</span>
+            <label><input type="radio" name="q3" value="1" onchange="checkAll()"> 在它变成香肠之前，它其实也是别人的孩子（小牛）。</label>
+            <label><input type="radio" name="q3" value="0" onchange="checkAll()"> 香肠是由工厂里的塑料袋直接制造出来的食物。</label>
+            <label><input type="radio" name="q3" value="0" onchange="checkAll()"> 香肠是从地底下挖出来的矿石变成的。</label>
+            <label><input type="radio" name="q3" value="0" onchange="checkAll()"> 在变成香肠之前，它是一棵长满红色果实的树。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">5. 苹果汁在被装进盒子里之前，需要经过什么过程？</span>
+            <label><input type="radio" name="q4" value="0" onchange="checkAll()"> 苹果汁是在地下沉睡了数千万年才形成的液体。</label>
+            <label><input type="radio" name="q4" value="0" onchange="checkAll()"> 苹果汁是从海水里过滤出来的，味道非常甜。</label>
+            <label><input type="radio" name="q4" value="1" onchange="checkAll()"> 苹果树需要多年的时间才能长大并结出果实。</label>
+            <label><input type="radio" name="q4" value="0" onchange="checkAll()"> 苹果汁是由人工智能在大雨中直接合成的。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">6. 饮料和食品的容器（如铝罐）在制成之前在哪里？</span>
+            <label><input type="radio" name="q5" value="0" onchange="checkAll()"> 它们原本是挂在树上的果实，成熟后被摘下来。</label>
+            <label><input type="radio" name="q5" value="1" onchange="checkAll()"> 它们在地底下沉睡了数千万年（矿石资源）。</label>
+            <label><input type="radio" name="q5" value="0" onchange="checkAll()"> 它们是从游泳池的水里提取出来的金属。</label>
+            <label><input type="radio" name="q5" value="0" onchange="checkAll()"> 它们是人工智能为了方便人类而变出来的奇迹。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">7. 漫画中提到人工智能（AI）需要什么资源？</span>
+            <label><input type="radio" name="q6" value="1" onchange="checkAll()"> 它并非奇迹，它始终渴望巨大的能量和水资源。</label>
+            <label><input type="radio" name="q6" value="0" onchange="checkAll()"> 它只需要塑料袋和盒子就可以一直工作。</label>
+            <label><input type="radio" name="q6" value="0" onchange="checkAll()"> 它是大自然的守护者，不需要任何地球资源。</label>
+            <label><input type="radio" name="q6" value="0" onchange="checkAll()"> 它只喜欢吃香肠和喝苹果汁，不需要能量。</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">8. 漫画最后提出了一个什么令人担心的问题？</span>
+            <label><input type="radio" name="q7" value="0" onchange="checkAll()"> 如果城市里不再有游泳池和烧烤，人们该怎么办？</label>
+            <label><input type="radio" name="q7" value="1" onchange="checkAll()"> 当地球上所有生命都灭亡，资源都用完了怎么办？</label>
+            <label><input type="radio" name="q7" value="0" onchange="checkAll()"> 如果大家不再买塑料袋装的东西，工厂该怎么办？</label>
+            <label><input type="radio" name="q7" value="0" onchange="checkAll()"> 当人工智能变得比人类更聪明时，我们该怎么办？</label>
+        </div>
+
+        <h3 class="section-title">第二部分：简答题</h3>
+
+        <div class="question-block">
+            <span class="q-text">9. 为什么作者认为“一切都与源头脱离了”是一个严重的问题？</span>
+            <textarea id="q8_text" oninput="checkAll()" placeholder="请写出完整的句子..."></textarea>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">10. 为了不让地球资源用完，我们在日常生活中可以做哪一件事？</span>
+            <textarea id="q9_text" oninput="checkAll()" placeholder="请写出完整的句子..."></textarea>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">提交答案</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    function checkAll() {
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 0 && q10Val.length > 0) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        let emailBody = "--- P3 华文理解测试答案 (环保) breakdown ---\n\n";
+        
+        const correctDetails = [
+            { text: "城市环境让一切都变得很方便，大家感觉生活很舒适。", letter: "B" },
+            { text: "感觉上，人们觉得现在所拥有的资源都是无限的。", letter: "B" },
+            { text: "意思是我们拿到的东西都是包装好的，不知道它们来自大自然。", letter: "C" },
+            { text: "在它变成香肠之前，它其实也是别人的孩子（小牛）。", letter: "A" },
+            { text: "苹果树需要多年的时间才能长大并结出果实。", letter: "C" },
+            { text: "它们在地底下沉睡了数千万年（矿石资源）。", letter: "B" },
+            { text: "它并非奇迹，它始终渴望巨大的能量和水资源。", letter: "A" },
+            { text: "当地球上所有生命都灭亡，资源都用完了怎么办？", letter: "B" }
+        ];
+
+        const questionsText = [
+            "漫画开头提到城市环境让一切都变得怎么样？",
+            "漫画中提到人们感觉现在拥有的资源是怎样的？",
+            "漫画中提到“一切都与源头脱离了”，这是什么意思？",
+            "在变成香肠之前，它原本是什么？",
+            "苹果汁在被装进盒子里之前，需要经过什么过程？",
+            "饮料和食品的容器（如铝罐）在制成之前在哪里？",
+            "漫画中提到人工智能（AI）需要什么资源？",
+            "漫画最后提出了一个什么令人担心的问题？"
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const isCorrect = selected.value === "1";
+            if(isCorrect) score++;
+            
+            emailBody += `问题 ${i+1}: ${questionsText[i]}\n`;
+            emailBody += `你的答案: ${selected.parentElement.textContent.trim()} ${isCorrect ? "正确 (✓)" : "错误 (X)"}\n`;
+            if (!isCorrect) {
+                emailBody += `正确答案: ${correctDetails[i].text} (${correctDetails[i].letter})\n`;
+            }
+            emailBody += "\n";
+        }
+
+        const q9QText = "为什么作者认为“一切都与源头脱离了”是一个严重的问题？";
+        const q10QText = "为了不让地球资源用完，我们在日常生活中可以做哪一件事？";
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `问题 9: ${q9QText}\n书写答案: ${q9Answer}\n\n`;
+        emailBody += `问题 10: ${q10QText}\n书写答案: ${q10Answer}\n\n`;
+        emailBody += `选择题总分: ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=Detailed Quiz Results: Environmental Protection&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">测试完成！选择题得分: ${score}/8</h2>
+            <p>您的报告已准备好，将发送至 <strong>${email}</strong>。</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">点击发送邮件报告</a></p>
+            <hr>
+            <p style="font-size: 0.85em; color: #666;">如果邮件应用未打开，请手动复制以下文本：</p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>
