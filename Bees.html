@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bees can detect viruses in food sources</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>Bees can detect viruses in food sources</h1>
+    <p class="instruction">Complete all 8 MCQs and 2 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <h3 class="section-title">Part A: Multiple Choice Questions</h3>
+        
+        <div class="question-block">
+            <span class="q-text">1. Why is detecting viruses very important for species like bees and ants?</span>
+            <label><input type="radio" name="q0" value="0" onchange="checkAll()"> It helps them find the queen bee more quickly in the dark hive.</label>
+            <label><input type="radio" name="q0" value="1" onchange="checkAll()"> It can prevent harmful viruses from spreading across entire colonies.</label>
+            <label><input type="radio" name="q0" value="0" onchange="checkAll()"> It allows them to grow much larger than other types of insects.</label>
+            <label><input type="radio" name="q0" value="0" onchange="checkAll()"> It helps the bees fly faster when they are looking for new flowers.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">2. Where did the researchers conduct this specific study on honeybees?</span>
+            <label><input type="radio" name="q1" value="0" onchange="checkAll()"> The study was carried out in a large apple orchard in Europe.</label>
+            <label><input type="radio" name="q1" value="0" onchange="checkAll()"> The researchers worked in a biology lab located in Singapore.</label>
+            <label><input type="radio" name="q1" value="1" onchange="checkAll()"> The study was recently carried out by researchers in the USA.</label>
+            <label><input type="radio" name="q1" value="0" onchange="checkAll()"> The experiment took place in a tropical rainforest in South America.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">3. What was the "control" food used in the experiment?</span>
+            <label><input type="radio" name="q2" value="1" onchange="checkAll()"> Sugar syrup that did not have any virus in it.</label>
+            <label><input type="radio" name="q2" value="0" onchange="checkAll()"> Fresh nectar collected from organic flowers in the field.</label>
+            <label><input type="radio" name="q2" value="0" onchange="checkAll()"> A mixture of honey and water given to the queen bee.</label>
+            <label><input type="radio" name="q2" value="0" onchange="checkAll()"> Plain water with no sugar or vitamins added to it.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">4. How did scientists determine if the bees liked one food more than the other?</span>
+            <label><input type="radio" name="q3" value="0" onchange="checkAll()"> They watched to see which bees stayed in their cages the longest.</label>
+            <label><input type="radio" name="q3" value="1" onchange="checkAll()"> They measured exactly how much the bees ate of each of the two diets.</label>
+            <label><input type="radio" name="q3" value="0" onchange="checkAll()"> They counted how many times the bees buzzed near the food source.</label>
+            <label><input type="radio" name="q3" value="0" onchange="checkAll()"> They checked if the bees changed color after eating the sugar syrup.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">5. What was the "surprising" result of the experiment?</span>
+            <label><input type="radio" name="q4" value="0" onchange="checkAll()"> Bees were unable to find the food because they were in cages.</label>
+            <label><input type="radio" name="q4" value="1" onchange="checkAll()"> Detecting a virus did not always make the bees avoid the food.</label>
+            <label><input type="radio" name="q4" value="0" onchange="checkAll()"> The bees refused to eat any sugar syrup at all during the study.</label>
+            <label><input type="radio" name="q4" value="0" onchange="checkAll()"> All the bees died immediately after sensing the presence of a virus.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">6. Which group of bees is responsible for feeding the larvae and the queen?</span>
+            <label><input type="radio" name="q5" value="1" onchange="checkAll()"> The nurse bees, which are the young worker bees in the colony.</label>
+            <label><input type="radio" name="q5" value="0" onchange="checkAll()"> The forager bees, which are the older worker bees in the colony.</label>
+            <label><input type="radio" name="q5" value="0" onchange="checkAll()"> The drone bees, which are the male bees that live in the hive.</label>
+            <label><input type="radio" name="q5" value="0" onchange="checkAll()"> The scientist bees that were trained in the laboratory for the study.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">7. How did nurse bees behave toward contaminated food in the autumn?</span>
+            <label><input type="radio" name="q6" value="1" onchange="checkAll()"> They preferentially fed on foods contaminated with three distinct viruses.</label>
+            <label><input type="radio" name="q6" value="0" onchange="checkAll()"> They completely avoided all food and only drank plain water.</label>
+            <label><input type="radio" name="q6" value="0" onchange="checkAll()"> They behaved exactly the same way they did during the summer.</label>
+            <label><input type="radio" name="q6" value="0" onchange="checkAll()"> They shared the contaminated food only with the older forager bees.</label>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">8. What did forager bees prefer to eat during the study?</span>
+            <label><input type="radio" name="q7" value="0" onchange="checkAll()"> They preferred the control sugar syrup with no virus at all.</label>
+            <label><input type="radio" name="q7" value="1" onchange="checkAll()"> They preferred solutions with a high amount of the deformed wing virus.</label>
+            <label><input type="radio" name="q7" value="0" onchange="checkAll()"> They preferred to eat pollen and propolis instead of sugar syrup.</label>
+            <label><input type="radio" name="q7" value="0" onchange="checkAll()"> They preferred food that was given to them in the summer months.</label>
+        </div>
+
+        <h3 class="section-title">Part B: Written Answer Questions</h3>
+
+        <div class="question-block">
+            <span class="q-text">9. According to the article "Bees can detect viruses in food sources.docx", list two things forager bees collect outside the hive.</span>
+            <textarea id="q8_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+        </div>
+
+        <div class="question-block">
+            <span class="q-text">10. How might these findings help bee colonies in the future?</span>
+            <textarea id="q9_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results?</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    function checkAll() {
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        let emailBody = "--- P3 ENGLISH QUIZ RESULTS: BEE VIRUSES ---\n\n";
+        
+        const correctDetails = [
+            { text: "It can prevent harmful viruses from spreading across entire colonies.", letter: "B" },
+            { text: "The study was recently carried out by researchers in the USA.", letter: "C" },
+            { text: "Sugar syrup that did not have any virus in it.", letter: "A" },
+            { text: "They measured exactly how much the bees ate of each of the two diets.", letter: "B" },
+            { text: "Detecting a virus did not always make the bees avoid the food.", letter: "B" },
+            { text: "The nurse bees, which are the young worker bees in the colony.", letter: "A" },
+            { text: "They preferentially fed on foods contaminated with three distinct viruses.", letter: "A" },
+            { text: "They preferred solutions with a high amount of the deformed wing virus.", letter: "B" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const isCorrect = selected.value === "1";
+            if(isCorrect) score++;
+            emailBody += `Q${i+1} Status: ${isCorrect ? "CORRECT" : "INCORRECT"}\n`;
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQuestion 9 Answer: ${q9Answer}\n`;
+        emailBody += `Question 10 Answer: ${q10Answer}\n`;
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=Bee Virus Quiz Results&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Submitted! MCQ Score: ${score}/8</h2>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Send to Teacher</a></p>
+            <textarea readonly class="copy-box">${emailBody}</textarea>
+        `;
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>
