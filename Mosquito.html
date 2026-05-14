@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Why are some people mosquito magnets?</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>Why are some people mosquito magnets?</h1>
+    <p class="instruction" id="topInstruction">Complete all 8 MCQs and 2 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. What does the term "mosquito magnet" mean in the article?</span>
+                <label><input type="radio" name="q0" value="0" onchange="checkAll()"> People who use magnets to catch mosquitoes.</label>
+                <label><input type="radio" name="q0" value="1" onchange="checkAll()"> People who are much more attractive to mosquitoes than others.</label>
+                <label><input type="radio" name="q0" value="0" onchange="checkAll()"> A new type of scientific tool used to study insects.</label>
+                <label><input type="radio" name="q0" value="0" onchange="checkAll()"> People who like to keep mosquitoes as pets.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. According to scientists, what is one major clue why mosquitoes pick their targets?</span>
+                <label><input type="radio" name="q1" value="0" onchange="checkAll()"> The color of the clothes a person is wearing.</label>
+                <label><input type="radio" name="q1" value="1" onchange="checkAll()"> Specific chemicals and smells produced by the skin.</label>
+                <label><input type="radio" name="q1" value="0" onchange="checkAll()"> Whether the person is eating sweet food or not.</label>
+                <label><input type="radio" name="q1" value="0" onchange="checkAll()"> The type of music the person is listening to.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. Which gas do mosquitoes use to find humans from a long distance?</span>
+                <label><input type="radio" name="q2" value="1" onchange="checkAll()"> Carbon dioxide that we breathe out.</label>
+                <label><input type="radio" name="q2" value="0" onchange="checkAll()"> Oxygen that is found in the air around us.</label>
+                <label><input type="radio" name="q2" value="0" onchange="checkAll()"> Nitrogen which helps plants grow.</label>
+                <label><input type="radio" name="q2" value="0" onchange="checkAll()"> Helium which is used to fill party balloons.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. In the experiment mentioned, what did the volunteers wear on their arms?</span>
+                <label><input type="radio" name="q3" value="0" onchange="checkAll()"> Rubber gloves to prevent mosquito bites.</label>
+                <label><input type="radio" name="q3" value="1" onchange="checkAll()"> Nylon stockings to collect their skin scents.</label>
+                <label><input type="radio" name="q3" value="0" onchange="checkAll()"> Paper bandages to cover their skin completely.</label>
+                <label><input type="radio" name="q3" value="0" onchange="checkAll()"> Special watches that track mosquito movements.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. What did researchers find about "mosquito magnets" over time?</span>
+                <label><input type="radio" name="q4" value="0" onchange="checkAll()"> They stop being attractive to mosquitoes after a few weeks.</label>
+                <label><input type="radio" name="q4" value="1" onchange="checkAll()"> They remain mosquito magnets for a very long time, even years.</label>
+                <label><input type="radio" name="q4" value="0" onchange="checkAll()"> They only attract mosquitoes during the summer months.</label>
+                <label><input type="radio" name="q4" value="0" onchange="checkAll()"> Changing their soap helped them stop attracting mosquitoes.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. What skin chemical was found in high levels on people who attract mosquitoes?</span>
+                <label><input type="radio" name="q5" value="1" onchange="checkAll()"> Carboxylic acids.</label>
+                <label><input type="radio" name="q5" value="0" onchange="checkAll()"> Vitamin C.</label>
+                <label><input type="radio" name="q5" value="0" onchange="checkAll()"> Calcium.</label>
+                <label><input type="radio" name="q5" value="0" onchange="checkAll()"> Sugar water.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">7. Why is it hard to stop being a "mosquito magnet"?</span>
+                <label><input type="radio" name="q6" value="1" onchange="checkAll()"> Because the skin chemicals are produced by natural bacteria.</label>
+                <label><input type="radio" name="q6" value="0" onchange="checkAll()"> Because mosquitoes can see through walls.</label>
+                <label><input type="radio" name="q6" value="0" onchange="checkAll()"> Because magnets are very strong and cannot be removed.</label>
+                <label><input type="radio" name="q6" value="0" onchange="checkAll()"> Because humans forget to use mosquito spray.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. How could this research help people in the future?</span>
+                <label><input type="radio" name="q7" value="0" onchange="checkAll()"> It will help scientists create robot mosquitoes.</label>
+                <label><input type="radio" name="q7" value="1" onchange="checkAll()"> It could lead to better ways to mask or hide our skin scents.</label>
+                <label><input type="radio" name="q7" value="0" onchange="checkAll()"> It will help people learn how to talk to insects.</label>
+                <label><input type="radio" name="q7" value="0" onchange="checkAll()"> It will make mosquitoes go extinct forever.</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions</h3>
+
+            <div class="question-block">
+                <span class="q-text">9. Describe how the scientists used the nylon stockings to test which person was more attractive to mosquitoes.</span>
+                <textarea id="q8_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. Why do you think it is important for scientists to find out why mosquitoes are attracted to certain people?</span>
+                <textarea id="q9_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results?</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P3 ENGLISH QUIZ RESULTS: MOSQUITO MAGNETS ---\n\n";
+        
+        const correctDetails = [
+            { text: "People who are much more attractive to mosquitoes than others.", letter: "B" },
+            { text: "Specific chemicals and smells produced by the skin.", letter: "B" },
+            { text: "Carbon dioxide that we breathe out.", letter: "A" },
+            { text: "Nylon stockings to collect their skin scents.", letter: "B" },
+            { text: "They remain mosquito magnets for a very long time, even years.", letter: "B" },
+            { text: "Carboxylic acids.", letter: "A" },
+            { text: "Because the skin chemicals are produced by natural bacteria.", letter: "A" },
+            { text: "It could lead to better ways to mask or hide our skin scents.", letter: "B" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const isCorrect = selected.value === "1";
+            if(isCorrect) score++;
+            emailBody += `Q${i+1} Status: ${isCorrect ? "CORRECT" : "INCORRECT"}\n`;
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQuestion 9 Answer: ${q9Answer}\n`;
+        emailBody += `Question 10 Answer: ${q10Answer}\n`;
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=Mosquito Magnet Quiz Results&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/8</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Send to Teacher</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+        
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>
