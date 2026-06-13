@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Can humans become immortal?</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>Can humans become immortal?</h1>
+    <p class="instruction" id="topInstruction">Complete all 8 MCQs and 2 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. What amazing ability do sea cucumbers have that scientists are studying?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> They can fly out of the ocean water when chased.</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> They can completely regrow body parts after being cut.</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> They can change their colors to bright purple instantly.</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> They can speak to other sea creatures using bubbles.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. According to the study, what happens to a severed piece of a sea cucumber?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> It melts into liquid within a few minutes.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="B" onchange="checkAll()"> It immediately sinks and gets eaten by crabs.</label>
+                <label><input type="radio" name="q1" value="1" data-letter="C" onchange="checkAll()"> It does not simply die but can regenerate into a whole new creature.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> It floats on top of the water forever without changing.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. Why are researchers studying these sea creatures?</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A" onchange="checkAll()"> To learn how to build better boats for deep oceans.</label>
+                <label><input type="radio" name="q2" value="1" data-letter="B" onchange="checkAll()"> To discover secrets about healing and tissue regeneration.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C" onchange="checkAll()"> To find out if sea cucumbers can be trained as pets.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> To make underwater video games look more realistic.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. What is the special type of cells that helps with this regeneration process?</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A" onchange="checkAll()"> Muscle cells that never get tired.</label>
+                <label><input type="radio" name="q3" value="1" data-letter="B" onchange="checkAll()"> Stem cells that can transform into different tissue types.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C" onchange="checkAll()"> Clear water cells that fill up the spaces inside.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> Plant cells that can capture bright sunlight.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. How does a sea cucumber protect itself when a predator attacks?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A" onchange="checkAll()"> It grows sharp iron spikes all over its skin.</label>
+                <label><input type="radio" name="q4" value="1" data-letter="B" onchange="checkAll()"> It can expel parts of its internal organs to confuse the enemy.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="C" onchange="checkAll()"> It swims backward at a very high speed.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> It calls a large whale to come and save it.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. Why can't humans currently regenerate limbs like a sea cucumber does?</span>
+                <label><input type="radio" name="q5" value="1" data-letter="A" onchange="checkAll()"> Human bodies form complex scar tissue instead of regrowing complex organs.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="B" onchange="checkAll()"> Humans do not drink enough saltwater from the deep ocean.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C" onchange="checkAll()"> Human bones are too soft to grow back after childhood.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> Humans do not spend enough time resting in dark rooms.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">7. What does the word "immortal" mean in the title of the quiz?</span>
+                <label><input type="radio" name="q6" value="0" data-letter="A" onchange="checkAll()"> Being able to swim very fast under deep water.</label>
+                <label><input type="radio" name="q6" value="0" data-letter="B" onchange="checkAll()"> Having the power to see clearly in the dark.</label>
+                <label><input type="radio" name="q6" value="1" data-letter="C" onchange="checkAll()"> Living forever or never dying.</label>
+                <label><input type="radio" name="q6" value="0" data-letter="D" onchange="checkAll()"> Becoming much bigger than anyone else.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. What do scientists hope to do with this marine research in the future?</span>
+                <label><input type="radio" name="q7" value="0" data-letter="A" onchange="checkAll()"> Move all human homes into the deep blue sea.</label>
+                <label><input type="radio" name="q7" value="1" data-letter="B" onchange="checkAll()"> Develop advanced medical treatments to help humans heal better.</label>
+                <label><input type="radio" name="q7" value="0" data-letter="C" onchange="checkAll()"> Stop all wild sea cucumbers from moving around.</label>
+                <label><input type="radio" name="q7" value="0" data-letter="D" onchange="checkAll()"> Change the color of human skin to match sea animals.</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions</h3>
+
+            <div class="question-block">
+                <span class="q-text">9. According to the article, why does a severed piece of a sea cucumber not simply die?</span>
+                <textarea id="q8_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. How might understanding sea cucumber regeneration help medical science in the future?</span>
+                <textarea id="q9_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results?</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P3 ENGLISH QUIZ RESULTS: CAN HUMANS BECOME IMMORTAL? ---\n\n";
+        
+        const correctDetails = [
+            { text: "They can completely regrow body parts after being cut.", letter: "B" },
+            { text: "It does not simply die but can regenerate into a whole new creature.", letter: "C" },
+            { text: "To discover secrets about healing and tissue regeneration.", letter: "B" },
+            { text: "Stem cells that can transform into different tissue types.", letter: "B" },
+            { text: "It can expel parts of its internal organs to confuse the enemy.", letter: "B" },
+            { text: "Human bodies form complex scar tissue instead of regrowing complex organs.", letter: "A" },
+            { text: "Living forever or never dying.", letter: "C" },
+            { text: "Develop advanced medical treatments to help humans heal better.", letter: "B" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+            
+            if(isCorrect) {
+                score++;
+                emailBody += `Q${i+1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i+1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQ9 According to the article, why does a severed piece of a sea cucumber not simply die?\nAnswer: ${q9Answer}\n`;
+        emailBody += `\nQ10 How might understanding sea cucumber regeneration help medical science in the future?\nAnswer: ${q10Answer}\n`;
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=Immortal Human Quiz Results&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/8</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Send to Teacher</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+        
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>
