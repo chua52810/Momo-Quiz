@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Robots to the rescue</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>Robots to the rescue</h1>
+    <p class="instruction" id="topInstruction">Complete all 8 MCQs and 2 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. What is Spinal Muscular Atrophy (SMA)?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> A common leg injury caused by running</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> A rare genetic nerve disorder</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> A special video game designed by scientists</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> An exercise routine used to stretch bones</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. Why do the leg muscles of children with SMA shrink and grow very weak?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> Because they play too many computer games.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="B" onchange="checkAll()"> Because they are carrying bags of rice.</label>
+                <label><input type="radio" name="q1" value="1" data-letter="C" onchange="checkAll()"> Because they cannot use their muscles easily.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> Because they spend too much time standing up.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. Where is the newly invented wearable robot strapped on a child?</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A" onchange="checkAll()"> Around their ankles</label>
+                <label><input type="radio" name="q2" value="1" data-letter="B" onchange="checkAll()"> Onto their knees</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C" onchange="checkAll()"> Around their waist</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> Across their shoulders</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. What does the author compare the robot's weight to, to show that it is light?</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A" onchange="checkAll()"> A cartoon ball</label>
+                <label><input type="radio" name="q3" value="0" data-letter="B" onchange="checkAll()"> A traditional wheelchair</label>
+                <label><input type="radio" name="q3" value="1" data-letter="C" onchange="checkAll()"> A bag of rice</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> A heavy laptop</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. How does the new wearable robot work differently from traditional robots?</span>
+                <label><input type="radio" name="q4" value="1" data-letter="A" onchange="checkAll()"> It applies resistance to make kicking harder.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B" onchange="checkAll()"> It helps to carry and fully support the child.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="C" onchange="checkAll()"> It automatically moves the child's legs for them.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> It lifts the child out of a wheelchair into a bed.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. What did the children do to make exercising with the robot fun?</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A" onchange="checkAll()"> They watched a documentary about MIT.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="B" onchange="checkAll()"> They raced each other in real wheelchairs.</label>
+                <label><input type="radio" name="q5" value="1" data-letter="C" onchange="checkAll()"> They played a video game where they kicked a cartoon ball.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> They drew pictures of robots during class.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">7. How many children participated in the high-intensity training study?</span>
+                <label><input type="radio" name="q6" value="0" data-letter="A" onchange="checkAll()"> Four</label>
+                <label><input type="radio" name="q6" value="1" data-letter="B" onchange="checkAll()"> Six</label>
+                <label><input type="radio" name="q6" value="0" data-letter="C" onchange="checkAll()"> Ten</label>
+                <label><input type="radio" name="q6" value="0" data-letter="D" onchange="checkAll()"> Three</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. Which word in the last paragraph has the same meaning as "producing a desired or successful result"?</span>
+                <label><input type="radio" name="q7" value="0" data-letter="A" onchange="checkAll()"> Amazing</label>
+                <label><input type="radio" name="q7" value="0" data-letter="B" onchange="checkAll()"> High-intensity</label>
+                <label><input type="radio" name="q7" value="1" data-letter="C" onchange="checkAll()"> Effective</label>
+                <label><input type="radio" name="q7" value="0" data-letter="D" onchange="checkAll()"> Completing</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions</h3>
+
+            <div class="question-block">
+                <span class="q-text">9. According to paragraph 3, what happened to the cartoon ball in the video game when a child kicked harder?</span>
+                <textarea id="q8_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. What milestone achievement were all the children able to accomplish entirely on their own after six weeks of training?</span>
+                <textarea id="q9_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results?</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P3 ENGLISH QUIZ RESULTS: ROBOTS TO THE RESCUE ---\n\n";
+        
+        const correctDetails = [
+            { text: "A rare genetic nerve disorder", letter: "B" },
+            { text: "Because they cannot use their muscles easily.", letter: "C" },
+            { text: "Onto their knees", letter: "B" },
+            { text: "A bag of rice", letter: "C" },
+            { text: "It applies resistance to make kicking harder.", letter: "A" },
+            { text: "They played a video game where they kicked a cartoon ball.", letter: "C" },
+            { text: "Six", letter: "B" },
+            { text: "Effective", letter: "C" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+            
+            if(isCorrect) {
+                score++;
+                emailBody += `Q${i+1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i+1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQ9 According to paragraph 3, what happened to the cartoon ball in the video game when a child kicked harder?\nAnswer: ${q9Answer}\n`;
+        emailBody += `\nQ10 What milestone achievement were all the children able to accomplish entirely on their own after six weeks of training?\nAnswer: ${q10Answer}\n`;
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=Robots to the Rescue Quiz Results&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/8</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Send to Teacher</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+        
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>

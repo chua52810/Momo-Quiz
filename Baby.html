@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>长不大的“婴儿”哥哥</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>长不大的“婴儿”哥哥</h1>
+    <p class="instruction" id="topInstruction">请完成所有 8 道选择题和 2 道问答题以开启提交功能。</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">第一部分：选择题 (Part A: Multiple Choice Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. 王军明哥哥今年多少岁？他的身高是多少？</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> A) 21岁，66厘米</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> B) 25岁，66厘米</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> C) 25岁，21厘米</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> D) 21岁，25厘米</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. 为什么王军明哥哥的身体一直长不大？</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> A) 因为他每天晚上8点前就乖乖睡觉。</label>
+                <label><input type="radio" name="q1" value="1" data-letter="B" onchange="checkAll()"> B) 因为他患上罕见疾病，身体里缺少“生长激素”。</label>
+                <label><input type="radio" name="q1" value="0" data-letter="C" onchange="checkAll()"> C) 因为他的想法像小孩子一样简单快乐。</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> D) 因为他不需要像其他大人一样担心工作。</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. 军明的妹妹叫什么名字？她今年多少岁？</span>
+                <label><input type="radio" name="q2" value="1" data-letter="A" onchange="checkAll()"> A) 小玲，21岁</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B" onchange="checkAll()"> B) 小玲，25岁</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C" onchange="checkAll()"> C) 军明，21岁</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> D) 军明，25岁</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. 妹妹是从什么时候开始细心照顾哥哥的？</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A" onchange="checkAll()"> A) 从哥哥出生的时候开始</label>
+                <label><input type="radio" name="q3" value="0" data-letter="B" onchange="checkAll()"> B) 从妹妹护士学校毕业后开始</label>
+                <label><input type="radio" name="q3" value="1" data-letter="C" onchange="checkAll()"> C) 从妹妹上小学、妈妈生重病时开始</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> D) 从网友们帮忙联系医生时开始</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. 哥哥通过什么举动表现出他其实很聪明？</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A" onchange="checkAll()"> A) 他会自己按时找工作</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B" onchange="checkAll()"> B) 他每天自己看书学习</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C" onchange="checkAll()"> C) 他能认出最疼他的妹妹，还会帮妹妹找被妈妈藏起来的手机</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> D) 他学会了像大城市里的人一样生活</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. 妹妹从什么学校毕业？她毕业后决定去哪里工作？</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A" onchange="checkAll()"> A) 师范学校，决定去大城市工作</label>
+                <label><input type="radio" name="q5" value="1" data-letter="B" onchange="checkAll()"> B) 护士学校，决定留在家乡工作</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C" onchange="checkAll()"> C) 护士学校，决定去大城市工作</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> D) 职业学校，决定留在学校工作</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">7. 妹妹把故事分享到网上后，热心的网友们提供了什么帮助？</span>
+                <label><input type="radio" name="q6" value="1" data-letter="A" onchange="checkAll()"> A) 纷纷帮忙，为军明联系了医生接受治疗</label>
+                <label><input type="radio" name="q6" value="0" data-letter="B" onchange="checkAll()"> B) 寄了很多婴儿衣服给哥哥</label>
+                <label><input type="radio" name="q6" value="0" data-letter="C" onchange="checkAll()"> C) 接哥哥去大城市里生活</label>
+                <label><input type="radio" name="q6" value="0" data-letter="D" onchange="checkAll()"> D) 帮妹妹找回了藏起来的手机</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. 文中“命运没有让哥哥好好长大，但却给了我一个需要用一生去照顾的‘小男子汉’。”这句话是谁说的？</span>
+                <label><input type="radio" name="q7" value="0" data-letter="A" onchange="checkAll()"> A) 哥哥军明</label>
+                <label><input type="radio" name="q7" value="1" data-letter="B" onchange="checkAll()"> B) 妹妹小玲</label>
+                <label><input type="radio" name="q7" value="0" data-letter="C" onchange="checkAll()"> C) 生病的妈妈</label>
+                <label><input type="radio" name="q7" value="0" data-letter="D" onchange="checkAll()"> D) 网友和医生</label>
+            </div>
+
+            <h3 class="section-title">第二部分：问答题 (Part B: Written Answer Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">9. 哥哥王军明的日常生活是怎样的？请根据文章第一段写出两个特点。</span>
+                <textarea id="q8_text" oninput="checkAll()" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. 读完这篇文章，你有什么感想？</span>
+                <textarea id="q9_text" oninput="checkAll()" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">提交结果</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "已提交";
+        document.getElementById('topInstruction').textContent = "测验已锁定。结果已在下方生成。";
+
+        let score = 0;
+        let emailBody = "--- P3 CHINESE QUIZ RESULTS: 长不大的“婴儿”哥哥 ---\n\n";
+        
+        const correctDetails = [
+            { text: "25岁，66厘米", letter: "B" },
+            { text: "因为他患上罕见疾病，身体里缺少“生长激素”。", letter: "B" },
+            { text: "小玲，21岁", letter: "A" },
+            { text: "从妹妹上小学、妈妈生重病时开始", letter: "C" },
+            { text: "他能认出最疼他的妹妹，还会帮妹妹找被妈妈藏起来的手机", letter: "C" },
+            { text: "护士学校，决定留在家乡工作", letter: "B" },
+            { text: "纷纷帮忙，为军明联系了医生接受治疗", letter: "A" },
+            { text: "妹妹小玲", letter: "B" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+            
+            if(isCorrect) {
+                score++;
+                emailBody += `Q${i+1} 答案: ${userLetter}, 正确.\n`;
+            } else {
+                emailBody += `Q${i+1} 答案: ${userLetter}, 错误. 正确答案是 ${correctLetter}.\n`;
+            }
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQ9 哥哥王军明的日常生活是怎样的？请根据文章第一段写出两个特点。\n学生答案: ${q9Answer}\n`;
+        emailBody += `\nQ10 读完这篇文章，你有什么感想？\n学生答案: ${q10Answer}\n`;
+        emailBody += `\n选择题总得分 (TOTAL MCQ SCORE): ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=长不大的“婴儿”哥哥测验结果&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">测验完成! 选择题得分: ${score}/8</h2>
+            <p style="color: #e67e22; font-weight: bold;">答案已锁定，你无法再做更改。</p>
+            <p>你的测验结果已准备好发送至： <strong>${email}</strong>。</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">发给老师 (Send to Teacher)</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+        
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>

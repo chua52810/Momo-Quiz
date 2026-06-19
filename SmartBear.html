@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart bear on the prowl in Japan</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>Smart bear on the prowl in Japan</h1>
+    <p class="instruction" id="topInstruction">Complete all 8 MCQs and 2 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. Why are authorities in Japan describing the wild bear as "extremely intelligent"?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> It learned how to read warning signs set up along the road.</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> It avoids clever traps and successfully eludes local search teams.</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> It can perform tricks for tourists visiting the countryside.</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> It waves its paws at passing cars to ask for extra food.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. What did the wild bear do that caused authorities to launch an urgent search?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> It took shelter inside an old abandoned schoolhouse.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="B" onchange="checkAll()"> It stole laundry left to dry outside a farm cottage.</label>
+                <label><input type="radio" name="q1" value="1" data-letter="C" onchange="checkAll()"> It roamed close to a residential town and injured four people.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> It blocked traffic on a major highway for several hours.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. What does the phrase "on the prowl" mean in the quiz title?</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A" onchange="checkAll()"> Sleeping peacefully inside a deep mountain cave.</label>
+                <label><input type="radio" name="q2" value="1" data-letter="B" onchange="checkAll()"> Moving around stealthily while searching for food or prey.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C" onchange="checkAll()"> Running away from a loud noise in fear.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> Playing gently with other wild animals in the forest.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. Which group of people has been deployed to assist local police in locating the bear?</span>
+                <label><input type="radio" name="q3" value="1" data-letter="A" onchange="checkAll()"> Experienced hunters and wildlife experts.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="B" onchange="checkAll()"> Local school teachers and sports coaches.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C" onchange="checkAll()"> City tour guides and bus drivers.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> Construction site engineers and builders.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. What usually draws wild bears out of the mountains and into human towns?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A" onchange="checkAll()"> A desire to find bright streetlights to stay warm.</label>
+                <label><input type="radio" name="q4" value="1" data-letter="B" onchange="checkAll()"> Shortages of food like acorns in nature, or easily accessible town trash.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="C" onchange="checkAll()"> Curiosity to play with domestic pets living in backyards.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> Shifting weather that makes mountain air too thin to breathe.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. How are local residents reacting to news of the intelligent bear?</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A" onchange="checkAll()"> They are inviting neighbors over for outdoor backyard barbecues.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="B" onchange="checkAll()"> They are trying to follow the tracks to photograph the bear.</label>
+                <label><input type="radio" name="q5" value="1" data-letter="C" onchange="checkAll()"> They are staying alert, keeping children indoors, and checking lock systems.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> They are completely ignoring all notices posted by police squads.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">7. What tracking technology are search teams using alongside physical tracking?</span>
+                <label><input type="radio" name="q6" value="1" data-letter="A" onchange="checkAll()"> Thermal-imaging drones flown over the thick forest canopy.</label>
+                <label><input type="radio" name="q6" value="0" data-letter="B" onchange="checkAll()"> Automated underwater surveillance sound monitors.</label>
+                <label><input type="radio" name="q6" value="0" data-letter="C" onchange="checkAll()"> Bright lasers pointing towards the mountain peak.</label>
+                <label><input type="radio" name="q6" value="0" data-letter="D" onchange="checkAll()"> Motion sensors buried deep under country dirt tracks.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. What is the main message authorities want people to remember about bear encounters?</span>
+                <label><input type="radio" name="q7" value="0" data-letter="A" onchange="checkAll()"> Try to startle the bear by shouting and running directly at it.</label>
+                <label><input type="radio" name="q7" value="1" data-letter="B" onchange="checkAll()"> Remain calm, secure food trash, do not approach, and notify officials immediately.</label>
+                <label><input type="radio" name="q7" value="0" data-letter="C" onchange="checkAll()"> Offer the animal items from your backpack to build trust.</label>
+                <label><input type="radio" name="q7" value="0" data-letter="D" onchange="checkAll()"> Wait nearby until police squads arrive to arrest the animal.</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions</h3>
+
+            <div class="question-block">
+                <span class="q-text">9. According to the article, why are search teams finding it difficult to capture this specific bear?</span>
+                <textarea id="q8_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. What precautionary measures should residents in the affected area take to keep themselves safe?</span>
+                <textarea id="q9_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results?</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P3 ENGLISH QUIZ RESULTS: SMART BEAR ON THE PROWL IN JAPAN ---\n\n";
+        
+        const correctDetails = [
+            { text: "It avoids clever traps and successfully eludes local search teams.", letter: "B" },
+            { text: "It roamed close to a residential town and injured four people.", letter: "C" },
+            { text: "Moving around stealthily while searching for food or prey.", letter: "B" },
+            { text: "Experienced hunters and wildlife experts.", letter: "A" },
+            { text: "Shortages of food like acorns in nature, or easily accessible town trash.", letter: "B" },
+            { text: "They are staying alert, keeping children indoors, and checking lock systems.", letter: "C" },
+            { text: "Thermal-imaging drones flown over the thick forest canopy.", letter: "A" },
+            { text: "Remain calm, secure food trash, do not approach, and notify officials immediately.", letter: "B" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+            
+            if(isCorrect) {
+                score++;
+                emailBody += `Q${i+1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i+1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQ9 According to the article, why are search teams finding it difficult to capture this specific bear?\nAnswer: ${q9Answer}\n`;
+        emailBody += `\nQ10 What precautionary measures should residents in the affected area take to keep themselves safe?\nAnswer: ${q10Answer}\n`;
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=Smart Bear Quiz Results&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/8</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Send to Teacher</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+        
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>
