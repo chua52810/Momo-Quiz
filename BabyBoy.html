@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>2岁男童赤脚在马路玩!</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>2岁男童赤脚在马路玩!</h1>
+    <p class="instruction" id="topInstruction">请完成所有 8 道选择题和 2 道问答题以开启提交功能。</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">第一部分：选择题 (Part A: Multiple Choice Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. 这件危险的事情发生的时间和地点是在哪里？</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> A) 上个星期六早上，在邻里警局里</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> B) 上个星期六傍晚，在榜鹅的一条马路上</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> C) 昨天下午，在榜鹅的一个游乐场</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> D) 上个星期天傍晚，在人行道上</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. 小弟弟独自在路边玩什么？他当时有什么特别引人注意的样子？</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> A) 玩玩具车，穿着漂亮的鞋子</label>
+                <label><input type="radio" name="q1" value="0" data-letter="B" onchange="checkAll()"> B) 玩泥土，衣服弄得很脏</label>
+                <label><input type="radio" name="q1" value="1" data-letter="C" onchange="checkAll()"> C) 玩皮球，而且没有穿鞋子</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> D) 玩气球，一边走一边哭</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. 小弟弟摔倒受伤后，接着做出了什么让人感到可怕的举动？</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A" onchange="checkAll()"> A) 他坐在地上大声哭喊，不肯站起来</label>
+                <label><input type="radio" name="q2" value="1" data-letter="B" onchange="checkAll()"> B) 他没哭，反而站起来往车辆很多的马路中间跑去</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C" onchange="checkAll()"> C) He 跑去找路边的大人抱抱</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> D) 他转过身跑回家里去找妈妈</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. 文中的“袖手旁观”是指路上的大人当时在做什么？</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A" onchange="checkAll()"> A) 大家一起拍手叫好，觉得很好玩</label>
+                <label><input type="radio" name="q3" value="0" data-letter="B" onchange="checkAll()"> B) 大人们主动走上前拉住小弟弟</label>
+                <label><input type="radio" name="q3" value="1" data-letter="C" onchange="checkAll()"> C) 许多人看到了，却只是站在旁边看，没有人上前帮忙</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> D) 大家都急忙拿出手机来打电话报警</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. 阿姨看到这个危险的场面后，心情怎么样？她立刻做了什么？</span>
+                <label><input type="radio" name="q4" value="1" data-letter="A" onchange="checkAll()"> A) 她非常着急，马上冲上前一把将小弟弟拉回人行道</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B" onchange="checkAll()"> B) 她觉得很好笑，在路边停下来拍照发上网</label>
+                <label><input type="radio" name="q4" value="0" data-letter="C" onchange="checkAll()"> C) 她十分害怕，大声叫路边的行人们快点跑开</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> D) 她非常生气，走过去大声责备小弟弟</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. 把小弟弟带到安全的地方后，阿姨帮他做了什么事？</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A" onchange="checkAll()"> A) 帮他买了一双新鞋子穿上</label>
+                <label><input type="radio" name="q5" value="1" data-letter="B" onchange="checkAll()"> B) 让他休息，并帮他清理脚趾上的伤口</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C" onchange="checkAll()"> C) 陪着他一起在人行道上玩皮球</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> D) 给他买了很多好吃的点心</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">7. 阿姨为什么要把小弟弟带到附近的邻里警局？</span>
+                <label><input type="radio" name="q6" value="0" data-letter="A" onchange="checkAll()"> A) 因为警局里有医生可以帮他治病</label>
+                <label><input type="radio" name="q6" value="0" data-letter="B" onchange="checkAll()"> B) 因为警局就在马路中间，比较近</label>
+                <label><input type="radio" name="q6" value="1" data-letter="C" onchange="checkAll()"> C) 因为小弟弟不说话，阿姨觉得他可能和家人走散了</label>
+                <label><input type="radio" name="q6" value="0" data-letter="D" onchange="checkAll()"> D) 因为小弟弟想去警局里找警察叔叔玩</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. 阿姨在网上发文的目的是为了提醒大家什么？</span>
+                <label><input type="radio" name="q7" value="0" data-letter="A" onchange="checkAll()"> A) 提醒小朋友出门玩皮球时一定要穿鞋子</label>
+                <label><input type="radio" name="q7" value="0" data-letter="B" onchange="checkAll()"> B) 告诉大家榜鹅的马路上车子非常多，很危险</label>
+                <label><input type="radio" name="q7" value="1" data-letter="C" onchange="checkAll()"> C) 看到小朋友遇到危险不要只是在旁边看，应该尽可能伸出援手</label>
+                <label><input type="radio" name="q7" value="0" data-letter="D" onchange="checkAll()"> D) 建议大人们经常上网看别人的发文来学习知识</label>
+            </div>
+
+            <h3 class="section-title">第二部分：问答题 (Part B: Written Answer Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">9. 请根据文章第二段，写出小弟弟在摔倒后受了什么伤？之后他往哪里跑去？</span>
+                <textarea id="q8_text" oninput="checkAll()" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. 读了这篇文章后，你从这位热心的阿姨身上学到了什么道理？</span>
+                <textarea id="q9_text" oninput="checkAll()" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">提交结果</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        // 需要完成全部8道选择题，且两道问答题字数都要超过5个字
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "已提交";
+        document.getElementById('topInstruction').textContent = "测验已锁定。结果已在下方生成。";
+
+        let score = 0;
+        let emailBody = "--- P3 CHINESE QUIZ RESULTS: 2岁男童赤脚在马路玩! ---\n\n";
+        
+        const correctDetails = [
+            { text: "上个星期六傍晚，在榜鹅的一条马路上", letter: "B" },
+            { text: "玩皮球，而且没有穿鞋子", letter: "C" },
+            { text: "他没哭，反而站起来往车辆很多的马路中间跑去", letter: "B" },
+            { text: "许多人看到了，却只是站在旁边看，没有人上前帮忙", letter: "C" },
+            { text: "她非常着急，马上冲上前一把将小弟弟拉回人行道", letter: "A" },
+            { text: "让我休息，并帮他清理脚趾上的伤口", letter: "B" },
+            { text: "因为小弟弟不说话，阿姨觉得他可能和家人走散了", letter: "C" },
+            { text: "看到小朋友遇到危险不要只是在旁边看，应该尽可能伸出援手", letter: "C" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+            
+            if(isCorrect) {
+                score++;
+                emailBody += `Q${i+1} 答案: ${userLetter}, 正确.\n`;
+            } else {
+                emailBody += `Q${i+1} 答案: ${userLetter}, 错误. 正确答案是 ${correctLetter}.\n`;
+            }
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQ9 请根据文章第二段，写出小弟弟在摔倒后受了什么伤？之后他往哪里跑去？\n学生答案: ${q9Answer}\n`;
+        emailBody += `\nQ10 读了这篇文章后，你从这位热心的阿姨身上学到了什么道理？\n学生答案: ${q10Answer}\n`;
+        emailBody += `\n选择题总得分 (TOTAL MCQ SCORE): ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=2岁男童赤脚在马路玩测验结果&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">测验完成! 选择题得分: ${score}/8</h2>
+            <p style="color: #e67e22; font-weight: bold;">答案已锁定，你无法再做更改。</p>
+            <p>你的测验结果已准备好发送至： <strong>${email}</strong>。</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">发给老师 (Send to Teacher)</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+        
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>
