@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Excessive AI usage can lower exam scores</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>Excessive AI usage can lower exam scores</h1>
+    <p class="instruction" id="topInstruction">Complete all 8 MCQs and 2 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. What effect did AI homework tools have on students' homework performance?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> They lowered homework scores by 20 per cent.</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> They boosted homework scores by 18 per cent and cut homework time.</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> They made homework take twice as long to complete.</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> They caused students to stop doing their homework entirely.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. How many students participated in the study conducted by researchers in Sweden and Hong Kong?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> About 5,000 students</label>
+                <label><input type="radio" name="q1" value="0" data-letter="B" onchange="checkAll()"> Over 10,000 students</label>
+                <label><input type="radio" name="q1" value="1" data-letter="C" onchange="checkAll()"> More than 26,000 students</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> Exactly 50,000 students</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. Within six months of using AI tools, what happened to the students' monthly exam scores?</span>
+                <label><input type="radio" name="q2" value="1" data-letter="A" onchange="checkAll()"> They dropped by 20 per cent.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B" onchange="checkAll()"> They increased by 18 per cent.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C" onchange="checkAll()"> They stayed exactly the same.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> They improved slowly over time.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. How did the majority (81 per cent) of AI users in the study use AI for their homework?</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A" onchange="checkAll()"> They used AI as a personal tutor to help them think through problems.</label>
+                <label><input type="radio" name="q3" value="1" data-letter="B" onchange="checkAll()"> They generated direct answers to finish faster and get higher scores.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C" onchange="checkAll()"> They checked their completed work for spelling mistakes only.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> They studied past exam questions provided by AI.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. What happened to the exam results of the 19 per cent of students who used AI as a personal tutor?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A" onchange="checkAll()"> Their exam results dropped sharply.</label>
+                <label><input type="radio" name="q4" value="1" data-letter="B" onchange="checkAll()"> Their exam results stayed stable.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="C" onchange="checkAll()"> Their exam results failed completely.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> Their homework completion time doubled.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. Which subjects saw the largest drop in exam scores among students using AI?</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A" onchange="checkAll()"> STEM subjects</label>
+                <label><input type="radio" name="q5" value="0" data-letter="B" onchange="checkAll()"> Languages (English and Chinese)</label>
+                <label><input type="radio" name="q5" value="1" data-letter="C" onchange="checkAll()"> Social sciences (politics and geography)</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> Physical education and art</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">7. Why did top-performing students experience a larger drop in exam scores than lower achievers?</span>
+                <label><input type="radio" name="q6" value="1" data-letter="A" onchange="checkAll()"> They leaned more heavily on AI to find the optimal answer.</label>
+                <label><input type="radio" name="q6" value="0" data-letter="B" onchange="checkAll()"> They stopped attending classes altogether.</label>
+                <label><input type="radio" name="q6" value="0" data-letter="C" onchange="checkAll()"> They did not spend enough time on their homework.</label>
+                <label><input type="radio" name="q6" value="0" data-letter="D" onchange="checkAll()"> They used AI tools that were outdated.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. What is meant by the phrase "deceptive sense of fluency" in the article?</span>
+                <label><input type="radio" name="q7" value="0" data-letter="A" onchange="checkAll()"> Feeling confident because a student has studied very hard for exams.</label>
+                <label><input type="radio" name="q7" value="1" data-letter="B" onchange="checkAll()"> Feeling like tasks are effortless because AI does the work, tricking students into thinking they understand.</label>
+                <label><input type="radio" name="q7" value="0" data-letter="C" onchange="checkAll()"> Learning a new language smoothly without any errors.</label>
+                <label><input type="radio" name="q7" value="0" data-letter="D" onchange="checkAll()"> Being able to write fast without using any digital devices.</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions</h3>
+
+            <div class="question-block">
+                <span class="q-text">9. According to the study, why does using AI to directly generate homework answers harm a student's long-term exam performance?</span>
+                <textarea id="q8_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. How can students use AI tools safely without hurting their learning and exam results?</span>
+                <textarea id="q9_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results?</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P3 ENGLISH QUIZ RESULTS: USE OF AI CAN REDUCE YOUR EXAM SCORE ---\n\n";
+        
+        const correctDetails = [
+            { text: "They boosted homework scores by 18 per cent and cut homework time.", letter: "B" },
+            { text: "More than 26,000 students", letter: "C" },
+            { text: "They dropped by 20 per cent.", letter: "A" },
+            { text: "They generated direct answers to finish faster and get higher scores.", letter: "B" },
+            { text: "Their exam results stayed stable.", letter: "B" },
+            { text: "Social sciences (politics and geography)", letter: "C" },
+            { text: "They leaned more heavily on AI to find the optimal answer.", letter: "A" },
+            { text: "Feeling like tasks are effortless because AI does the work, tricking students into thinking they understand.", letter: "B" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+            
+            if(isCorrect) {
+                score++;
+                emailBody += `Q${i+1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i+1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQ9 According to the study, why does using AI to directly generate homework answers harm a student's long-term exam performance?\nAnswer: ${q9Answer}\n`;
+        emailBody += `\nQ10 How can students use AI tools safely without hurting their learning and exam results?\nAnswer: ${q10Answer}\n`;
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=Use of AI can reduce your exam score Quiz Results&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/8</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Send to Teacher</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+        
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cats ID is urine scent</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>Cats ID is urine scent</h1>
+    <p class="instruction" id="topInstruction">Complete all 8 MCQs and 2 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. According to the article, how do domestic cats identify each other?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> By looking closely at the pattern of their fur</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> By sniffing their urine scent</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> By listening to the sound of their meows</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> By touching their noses together</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. What nickname is given to the "flehmen grimace" expression that cats make when sniffing urine?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> Sleepy face</label>
+                <label><input type="radio" name="q1" value="1" data-letter="B" onchange="checkAll()"> Stinky face</label>
+                <label><input type="radio" name="q1" value="0" data-letter="C" onchange="checkAll()"> Happy smile</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> Angry look</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. Which chemical components form the unique odor marks in cat urine?</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A" onchange="checkAll()"> Proteins from fish</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B" onchange="checkAll()"> Sugars produced by the liver</label>
+                <label><input type="radio" name="q2" value="1" data-letter="C" onchange="checkAll()"> Branched-chain fatty acids</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> Mineral salts from water</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. Where are these odor-forming fatty acid components produced or stored before entering the urine?</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A" onchange="checkAll()"> In the cat's stomach</label>
+                <label><input type="radio" name="q3" value="1" data-letter="B" onchange="checkAll()"> In a kidney reservoir</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C" onchange="checkAll()"> Under the cat's paws</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> Inside the cat's tail</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. Besides domestic cats, which other animals in the feline family were found to have similar compounds in their urine?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A" onchange="checkAll()"> Wolves, foxes, and wild dogs</label>
+                <label><input type="radio" name="q4" value="1" data-letter="B" onchange="checkAll()"> Lions, tigers, and Iriomote cats</label>
+                <label><input type="radio" name="q4" value="0" data-letter="C" onchange="checkAll()"> Bears, otters, and pandas</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> Rabbits, hamsters, and squirrels</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. In which scientific journal was this study on cat urine published?</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A" onchange="checkAll()"> Nature Kids</label>
+                <label><input type="radio" name="q5" value="0" data-letter="B" onchange="checkAll()"> Science Today</label>
+                <label><input type="radio" name="q5" value="1" data-letter="C" onchange="checkAll()"> Current Biology</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> Animal World</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">7. Professor Masao Miyazaki comes from which institution?</span>
+                <label><input type="radio" name="q6" value="1" data-letter="A" onchange="checkAll()"> Iwate University's Faculty of Agriculture</label>
+                <label><input type="radio" name="q6" value="0" data-letter="B" onchange="checkAll()"> The University of Hong Kong</label>
+                <label><input type="radio" name="q6" value="0" data-letter="C" onchange="checkAll()"> Stockholm University</label>
+                <label><input type="radio" name="q6" value="0" data-letter="D" onchange="checkAll()"> National University of Singapore</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. According to the article, how could this research benefit humans and animals in practical ways?</span>
+                <label><input type="radio" name="q7" value="0" data-letter="A" onchange="checkAll()"> By teaching cats how to use public human restrooms</label>
+                <label><input type="radio" name="q7" value="0" data-letter="B" onchange="checkAll()"> By inventing new types of cat food that change fur colors</label>
+                <label><input type="radio" name="q7" value="1" data-letter="C" onchange="checkAll()"> By helping suppress urine odor, monitor rare feline species, and study diseases</label>
+                <label><input type="radio" name="q7" value="0" data-letter="D" onchange="checkAll()"> By stopping cats from making funny facial expressions</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions</h3>
+
+            <div class="question-block">
+                <span class="q-text">9. Why is a cat's urine scent described as an "individual ID card" that remains effective for a long time?</span>
+                <textarea id="q8_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. How did researchers use the "flehmen grimace" or "stinky face" to study how cats react to familiar versus unfamiliar urine?</span>
+                <textarea id="q9_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results?</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P3 ENGLISH QUIZ RESULTS: CATS ID IS URINE SCENT ---\n\n";
+        
+        const correctDetails = [
+            { text: "By sniffing their urine scent", letter: "B" },
+            { text: "Stinky face", letter: "B" },
+            { text: "Branched-chain fatty acids", letter: "C" },
+            { text: "In a kidney reservoir", letter: "B" },
+            { text: "Lions, tigers, and Iriomote cats", letter: "B" },
+            { text: "Current Biology", letter: "C" },
+            { text: "Iwate University's Faculty of Agriculture", letter: "A" },
+            { text: "By helping suppress urine odor, monitor rare feline species, and study diseases", letter: "C" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+            
+            if(isCorrect) {
+                score++;
+                emailBody += `Q${i+1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i+1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQ9 Why is a cat's urine scent described as an "individual ID card" that remains effective for a long time?\nAnswer: ${q9Answer}\n`;
+        emailBody += `\nQ10 How did researchers use the "flehmen grimace" or "stinky face" to study how cats react to familiar versus unfamiliar urine?\nAnswer: ${q10Answer}\n`;
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=Cats ID is urine scent Quiz Results&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/8</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Send to Teacher</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+        
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>

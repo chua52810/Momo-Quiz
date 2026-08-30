@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>努力读书的女孩</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>努力读书的女孩</h1>
+    <p class="instruction" id="topInstruction">请完成所有 8 道选择题和 2 道问答题以开启提交功能。</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">第一部分：选择题 (Part A: Multiple Choice Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. 韩雅平姐姐在重要的大考试中取得了怎样的好成绩？</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> A) 她考了全校第一名，拿到了很多奖学金</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> B) 她的成绩在全省名列前茅，最好的大学都邀请她去读书</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> C) 她考上了外国的学校，准备出国读书</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> D) 她的语文和数学都考了满分</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. 雅平姐姐的妈妈为什么不能工作？</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> A) 因为妈妈要在家里照顾年幼的妹妹</label>
+                <label><input type="radio" name="q1" value="1" data-letter="B" onchange="checkAll()"> B) 因为妈妈生了重病，每天只能躺在床上</label>
+                <label><input type="radio" name="q1" value="0" data-letter="C" onchange="checkAll()"> C) 因为妈妈要去地里帮忙爸爸干农活</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> D) 因为妈妈年纪太大了，行动不方便</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. 雅平姐姐全家主要靠谁赚钱养家？</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A" onchange="checkAll()"> A) 靠雅平姐姐放学后打零工</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B" onchange="checkAll()"> B) 靠村子里的好心人帮忙提供食物</label>
+                <label><input type="radio" name="q2" value="1" data-letter="C" onchange="checkAll()"> C) 靠爸爸一个人辛苦地干农活和打零工</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> D) 靠学校给他们家发放的补助金</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. 雅平姐姐平时是怎么学习的？</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A" onchange="checkAll()"> A) 每天放学后都去上补习班</label>
+                <label><input type="radio" name="q3" value="0" data-letter="B" onchange="checkAll()"> B) 请邻居的大哥哥大姐姐教她</label>
+                <label><input type="radio" name="q3" value="1" data-letter="C" onchange="checkAll()"> C) 她从来不上补习班，全靠自己认真学习</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> D) 老师每天都在学校给她单独补课</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. 爸爸在学校住校时给雅平姐姐的零用钱，她是怎样处理的？</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A" onchange="checkAll()"> A) 她拿去买了很多好看的文具和书本</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B" onchange="checkAll()"> B) 她省下来给年幼的妹妹买零食吃</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C" onchange="checkAll()"> C) 她舍不得花，放假回家时原封不动还给爸爸</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> D) 她把钱全部存进了村里的银行里</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. 雅平姐姐常常吃得比别人快，节省下来的时间用来做什么？</span>
+                <label><input type="radio" name="q5" value="1" data-letter="A" onchange="checkAll()"> A) 把更多的时间用来订正错题</label>
+                <label><input type="radio" name="q5" value="0" data-letter="B" onchange="checkAll()"> B) 去操场上做运动锻炼身体</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C" onchange="checkAll()"> C) 帮老师收拾教室里的桌椅</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> D) 提前回宿舍睡觉休息</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">7. 文中提到“墙上贴满了奖状”，这说明了什么？</span>
+                <label><input type="radio" name="q6" value="0" data-letter="A" onchange="checkAll()"> A) 雅平姐姐非常喜欢画画</label>
+                <label><input type="radio" name="q6" value="1" data-letter="B" onchange="checkAll()"> B) 雅平姐姐平时学习非常刻苦，成绩非常优秀</label>
+                <label><input type="radio" name="q6" value="0" data-letter="C" onchange="checkAll()"> C) 雅平姐姐家里的墙壁太旧了，用来遮挡</label>
+                <label><input type="radio" name="q6" value="0" data-letter="D" onchange="checkAll()"> D) 妹妹也拿到了很多学校给的奖状</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. 雅平姐姐努力学习的愿望和目标是什么？</span>
+                <label><input type="radio" name="q7" value="0" data-letter="A" onchange="checkAll()"> A) 去大城市买一所大房子</label>
+                <label><input type="radio" name="q7" value="0" data-letter="B" onchange="checkAll()"> B) 成为一名有名的大学老师</label>
+                <label><input type="radio" name="q7" value="1" data-letter="C" onchange="checkAll()"> C) 让爸爸妈妈以后能过上好日子</label>
+                <label><input type="radio" name="q7" value="0" data-letter="D" onchange="checkAll()"> D) 游览中国所有好玩的地方</label>
+            </div>
+
+            <h3 class="section-title">第二部分：问答题 (Part B: Written Answer Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">9. 请从文章中找出两个例子，说明韩雅平姐姐是一个非常懂事和节俭的孩子？</span>
+                <textarea id="q8_text" oninput="checkAll()" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. 读了韩雅平姐姐的故事后，你在今后的学习和生活中应该向她学习什么？</span>
+                <textarea id="q9_text" oninput="checkAll()" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">提交结果</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        // 要求所有8道MCQ被选中，且问答题输入字符数超过5
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "已提交";
+        document.getElementById('topInstruction').textContent = "测验已锁定。结果已在下方生成。";
+
+        let score = 0;
+        let emailBody = "--- P3 CHINESE QUIZ RESULTS: 努力读书的女孩 ---\n\n";
+        
+        const correctDetails = [
+            { text: "她的成绩在全省名列前茅，最好的大学都邀请她去读书", letter: "B" },
+            { text: "因为妈妈生了重病，每天只能躺在床上", letter: "B" },
+            { text: "靠爸爸一个人辛苦地干农活和打零工", letter: "C" },
+            { text: "她从来不上补习班，全靠自己认真学习", letter: "C" },
+            { text: "她舍不得花，放假回家时原封不动还给爸爸", letter: "C" },
+            { text: "把更多的时间用来订正错题", letter: "A" },
+            { text: "雅平姐姐平时学习非常刻苦，成绩非常优秀", letter: "B" },
+            { text: "让爸爸妈妈以后能过上好日子", letter: "C" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+            
+            if(isCorrect) {
+                score++;
+                emailBody += `Q${i+1} 答案: ${userLetter}, 正确.\n`;
+            } else {
+                emailBody += `Q${i+1} 答案: ${userLetter}, 错误. 正确答案是 ${correctLetter}.\n`;
+            }
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQ9 请从文章中找出两个例子，说明韩雅平姐姐是一个非常懂事和节俭的孩子？\n学生答案: ${q9Answer}\n`;
+        emailBody += `\nQ10 读了韩雅平姐姐的故事后，你在今后的学习和生活中应该向她学习什么？\n学生答案: ${q10Answer}\n`;
+        emailBody += `\n选择题总得分 (TOTAL MCQ SCORE): ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=努力读书的女孩测验结果&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">测验完成! 选择题得分: ${score}/8</h2>
+            <p style="color: #e67e22; font-weight: bold;">答案已锁定，你无法再做更改。</p>
+            <p>你的测验结果已准备好发送至： <strong>${email}</strong>。</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">发给老师 (Send to Teacher)</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+        
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>
