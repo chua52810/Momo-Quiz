@@ -159,7 +159,7 @@
         document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
 
         let score = 0;
-        let emailBody = "--- P3 ENGLISH QUIZ RESULTS: HUMAN REFRIGERATOR ---\n\n";
+        let emailBody = "--- P3 ENGLISH QUIZ RESULTS: TOILET EQUALITY ---\n\n";
         
         const correctDetails = [
             { text: "Women are charged to use toilet cubicles while men can use urinals for free.", letter: "B" },
@@ -196,7 +196,7 @@
         const resDiv = document.getElementById('results');
         resDiv.style.display = 'block';
         const email = "chua52810@gmail.com";
-        const mailtoUrl = `mailto:${email}?subject=Human refrigerator Quiz Results&body=${encodeURIComponent(emailBody)}`;
+        const mailtoUrl = `mailto:${email}?subject=Toilet Equality Quiz Results&body=${encodeURIComponent(emailBody)}`;
         
         resDiv.innerHTML = `
             <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/8</h2>
