@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>一碗面</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>一碗面</h1>
+    <p class="instruction" id="topInstruction">请完成所有 8 道选择题和 2 道问答题以开启提交功能。</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">第一部分：选择题 (Part A: Multiple Choice Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. 敏敏为什么会对母亲感到非常反感？</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> 因为母亲不给她买新手机</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> 因为母亲经常对她唠叨个没完没了</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> 因为母亲不让她吃晚餐</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> 因为母亲逼她天天去面摊打工</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. 故事开头，母亲唠叨敏敏的内容不包括下列哪一项？</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> 衣服不要乱丢</label>
+                <label><input type="radio" name="q1" value="0" data-letter="B" onchange="checkAll()"> 不要老是看手机</label>
+                <label><input type="radio" name="q1" value="0" data-letter="C" onchange="checkAll()"> 好好读书</label>
+                <label><input type="radio" name="q1" value="1" data-letter="D" onchange="checkAll()"> 不要到处去买面吃</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. 听了母亲的唠叨后，敏敏做出了什么冲动的举动？</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A" onchange="checkAll()"> 躲进房间里大哭一场</label>
+                <label><input type="radio" name="q2" value="1" data-letter="B" onchange="checkAll()"> 气呼呼地夺门而出，离家出走</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C" onchange="checkAll()"> 坐在客厅专心看手机</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> 帮母亲把乱丢的衣服收拾好</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. 傍晚时分，敏敏走在路上遇到了什么难题？</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A" onchange="checkAll()"> 天下起大雨，她没有带雨伞</label>
+                <label><input type="radio" name="q3" value="0" data-letter="B" onchange="checkAll()"> 她迷路了，找不到回家的方向</label>
+                <label><input type="radio" name="q3" value="1" data-letter="C" onchange="checkAll()"> 肚子饿得咕噜咕噜叫，但身上连一毛钱都没有</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> 她的手机不小心弄丢了</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. 面摊老板看到敏敏面有难色并得知她没钱后，是怎么对待她的？</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A" onchange="checkAll()"> 责备她出门不带钱，让她快点离开</label>
+                <label><input type="radio" name="q4" value="1" data-letter="B" onchange="checkAll()"> 热情又好心地说没关系，主动煮了一碗热腾腾的面请她吃</label>
+                <label><input type="radio" name="q4" value="0" data-letter="C" onchange="checkAll()"> 要她打电话叫父母来付钱</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> 让她帮忙洗碗来抵消吃面的钱</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. 敏敏吃着老板送上的面时，为什么突然流下了眼泪？</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A" onchange="checkAll()"> 面条实在太辣、太烫了</label>
+                <label><input type="radio" name="q5" value="1" data-letter="B" onchange="checkAll()"> 她觉得素不相识的老板对自己这么好，而妈妈却每天责怪自己，内心百感交集</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C" onchange="checkAll()"> 因为老板煮的面不好吃</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> 想到自己再也不能回家了</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">7. 面摊老板的一番话让敏敏“恍然大悟”。老板主要提醒了敏敏什么？</span>
+                <label><input type="radio" name="q6" value="1" data-letter="A" onchange="checkAll()"> 陌生人的一碗面就让她感动，但母亲为她做过无数顿饭菜，她却不懂得感恩</label>
+                <label><input type="radio" name="q6" value="0" data-letter="B" onchange="checkAll()"> 以后肚子饿的时候一定要记得带钱</label>
+                <label><input type="radio" name="q6" value="0" data-letter="C" onchange="checkAll()"> 回家后要学会自己煮面吃</label>
+                <label><input type="radio" name="q6" value="0" data-letter="D" onchange="checkAll()"> 小孩子不应该在傍晚独自外出</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. 敏敏赶回家时，看到母亲在做什么？</span>
+                <label><input type="radio" name="q7" value="0" data-letter="A" onchange="checkAll()"> 母亲在客厅看电视，没有发现她离开</label>
+                <label><input type="radio" name="q7" value="0" data-letter="B" onchange="checkAll()"> 母亲把大门锁上了，不让她进门</label>
+                <label><input type="radio" name="q7" value="1" data-letter="C" onchange="checkAll()"> 母亲焦急地站在门口张望，担心她挨饿受冻</label>
+                <label><input type="radio" name="q7" value="0" data-letter="D" onchange="checkAll()"> 母亲已经自己吃完了所有饭菜去睡觉了</label>
+            </div>
+
+            <h3 class="section-title">第二部分：问答题 (Part B: Written Answer Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">9. 敏敏听了面摊老板的话后，为什么对自己的“任性与无知”感到相当惭愧？</span>
+                <textarea id="q8_text" oninput="checkAll()" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. 结合故事最后的旁白，父母平时对我们的“唠叨”和叮咛背后真正的原因是什么？我们平时应该怎样对待父母的叮咛？</span>
+                <textarea id="q9_text" oninput="checkAll()" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">提交结果</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "已提交";
+        document.getElementById('topInstruction').textContent = "测验已锁定。结果已在下方生成。";
+
+        let score = 0;
+        let emailBody = "--- P3 CHINESE QUIZ RESULTS: 一碗面 ---\n\n";
+        
+        const correctDetails = [
+            { text: "因为母亲经常对她唠叨个没完没了", letter: "B" },
+            { text: "不要到处去买面吃", letter: "D" },
+            { text: "气呼呼地夺门而出，离家出走", letter: "B" },
+            { text: "肚子饿得咕噜咕噜叫，但身上连一毛钱都没有", letter: "C" },
+            { text: "热情又好心地说没关系，主动煮了一碗热腾腾的面请她吃", letter: "B" },
+            { text: "她觉得素不相识的老板对自己这么好，而妈妈却每天责怪自己，内心百感交集", letter: "B" },
+            { text: "陌生人的一碗面就让她感动，但母亲为她做过无数顿饭菜，她却不懂得感恩", letter: "A" },
+            { text: "母亲焦急地站在门口张望，担心她挨饿受冻", letter: "C" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+            
+            if(isCorrect) {
+                score++;
+                emailBody += `Q${i+1} 答案: ${userLetter}, 正确.\n`;
+            } else {
+                emailBody += `Q${i+1} 答案: ${userLetter}, 错误. 正确答案是 ${correctLetter}.\n`;
+            }
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQ9 敏敏听了面摊老板的话后，为什么对自己的“任性与无知”感到相当惭愧？\n学生答案: ${q9Answer}\n`;
+        emailBody += `\nQ10 结合故事最后的旁白，父母平时对我们的“唠叨”和叮咛背后真正的原因是什么？我们平时应该怎样对待父母的叮咛？\n学生答案: ${q10Answer}\n`;
+        emailBody += `\n选择题总得分 (TOTAL MCQ SCORE): ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=一碗面测验结果&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">测验完成! 选择题得分: ${score}/8</h2>
+            <p style="color: #e67e22; font-weight: bold;">答案已锁定，你无法再做更改。</p>
+            <p>你的测验结果已准备好发送至： <strong>${email}</strong>。</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">发给老师 (Send to Teacher)</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+        
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>
