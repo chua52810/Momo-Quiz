@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Mystery of Venus's Lost Moon</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>The Mystery of Venus's Lost Moon</h1>
+    <p class="instruction" id="topInstruction">Complete all 8 MCQs and 2 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. How does Venus compare to Earth in terms of having natural moons today?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> Venus has two small moons, just like Mars.</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> Earth has one large moon, while Venus currently has no moons at all.</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> Both planets have exactly one natural satellite orbiting them.</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> Venus has dozens of icy moons trapped around its rings.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. Why is Venus often described by astronomers as Earth's "twin sister"?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> They both spin in the exact same direction at the same speed.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="B" onchange="checkAll()"> Both worlds have vast oceans of liquid blue water.</label>
+                <label><input type="radio" name="q1" value="1" data-letter="C" onchange="checkAll()"> They have very similar sizes, masses, and compositions.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> Both planets have identical breathable oxygen atmospheres.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. What unusual rotational characteristic makes Venus stand out from most planets in our solar system?</span>
+                <label><input type="radio" name="q2" value="1" data-letter="A" onchange="checkAll()"> It spins in retrograde (backwards) and completes its rotation extremely slowly.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B" onchange="checkAll()"> It spins so fast that a day lasts only three hours.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C" onchange="checkAll()"> It stops spinning completely whenever it passes the Sun.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> It wobbles upside down once every week.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. According to scientists, what would have happened if an ancient impact created a moon for Venus?</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A" onchange="checkAll()"> The moon would have turned into a giant comet and left the solar system.</label>
+                <label><input type="radio" name="q3" value="1" data-letter="B" onchange="checkAll()"> Tidal forces and solar gravity would have caused the moon's orbit to be unstable and doomed.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C" onchange="checkAll()"> The moon would have cooled down the hot volcanic surface of Venus.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> The moon would have immediately exploded into tiny golden stars.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. What role does the Sun's strong gravitational pull play on any potential moon orbiting Venus?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A" onchange="checkAll()"> It pushes the moon safely into deep space away from danger.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B" onchange="checkAll()"> It freezes the surface of the moon into solid ice.</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C" onchange="checkAll()"> Being closer to the Sun creates powerful solar tides that disrupt the satellite's orbital path.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> It turns the moon into a bright secondary star.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. In scientific computer models, what two possible fates likely awaited any ancient moon of Venus?</span>
+                <label><input type="radio" name="q5" value="1" data-letter="A" onchange="checkAll()"> It either spiraled inwards and crashed into Venus, or was stripped away into space.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="B" onchange="checkAll()"> It either turned into rings of gold or became a meteor shower.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C" onchange="checkAll()"> It collided directly with Mercury or merged with Mars.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> It became an active volcano or was swallowed directly by the Sun.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">7. What does the word "doomed" most closely mean in the context of the article?</span>
+                <label><input type="radio" name="q6" value="0" data-letter="A" onchange="checkAll()"> Destined to become famous across the galaxy</label>
+                <label><input type="radio" name="q6" value="1" data-letter="B" onchange="checkAll()"> Bound to suffer unavoidable destruction or failure</label>
+                <label><input type="radio" name="q6" value="0" data-letter="C" onchange="checkAll()"> Protected safely from any possible harm</label>
+                <label><input type="radio" name="q6" value="0" data-letter="D" onchange="checkAll()"> Hidden quietly where nobody can see it</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. Why is studying the history of Venus and its lack of moons important for planetary scientists?</span>
+                <label><input type="radio" name="q7" value="0" data-letter="A" onchange="checkAll()"> To design rockets that can land humans on Venus next year</label>
+                <label><input type="radio" name="q7" value="0" data-letter="B" onchange="checkAll()"> To see if we can move our own Moon closer to Venus</label>
+                <label><input type="radio" name="q7" value="1" data-letter="C" onchange="checkAll()"> To understand how different planets evolve and why Earth remained habitable for life</label>
+                <label><input type="radio" name="q7" value="0" data-letter="D" onchange="checkAll()"> To search for ancient alien cities hidden beneath Venus's clouds</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions</h3>
+
+            <div class="question-block">
+                <span class="q-text">9. According to scientists, how did Venus's retrograde (backwards) rotation affect the survival of any moon orbiting it?</span>
+                <textarea id="q8_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. Why is Earth's Moon considered fortunate compared to any theoretical moon that Venus might once have possessed?</span>
+                <textarea id="q9_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results?</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P4 ENGLISH QUIZ RESULTS: THE MYSTERY OF VENUS'S LOST MOON ---\n\n";
+        
+        const correctDetails = [
+            { text: "Earth has one large moon, while Venus currently has no moons at all.", letter: "B" },
+            { text: "They have very similar sizes, masses, and compositions.", letter: "C" },
+            { text: "It spins in retrograde (backwards) and completes its rotation extremely slowly.", letter: "A" },
+            { text: "Tidal forces and solar gravity would have caused the moon's orbit to be unstable and doomed.", letter: "B" },
+            { text: "Being closer to the Sun creates powerful solar tides that disrupt the satellite's orbital path.", letter: "C" },
+            { text: "It either spiraled inwards and crashed into Venus, or was stripped away into space.", letter: "A" },
+            { text: "Bound to suffer unavoidable destruction or failure", letter: "B" },
+            { text: "To understand how different planets evolve and why Earth remained habitable for life", letter: "C" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+            
+            if(isCorrect) {
+                score++;
+                emailBody += `Q${i+1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i+1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQ9 According to scientists, how did Venus's retrograde (backwards) rotation affect the survival of any moon orbiting it?\nAnswer: ${q9Answer}\n`;
+        emailBody += `\nQ10 Why is Earth's Moon considered fortunate compared to any theoretical moon that Venus might once have possessed?\nAnswer: ${q10Answer}\n`;
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=The Mystery of Venus's Lost Moon Quiz Results&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/8</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Send to Teacher</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+        
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>

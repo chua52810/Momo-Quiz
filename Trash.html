@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Roaming Rubbish Robot</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; font-size: 0.9em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>The Roaming Rubbish Robot</h1>
+    <p class="instruction" id="topInstruction">Complete all 8 MCQs and 2 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. Where was the autonomous roaming rubbish bin robot tested?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> Haneda Airport</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> Shinjuku Station in Tokyo</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> Kyoto Central Bus Terminal</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> Osaka Castle Park</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. Why can it often be challenging for tourists and commuters to find public rubbish bins in Japan?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> Most people prefer carrying heavy trash bags with them.</label>
+                <label><input type="radio" name="q1" value="1" data-letter="B" onchange="checkAll()"> Public bins were largely removed due to historical safety and cleanliness concerns.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="C" onchange="checkAll()"> Rubbish bins are strictly reserved for train conductors only.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> Train stations only allow people to throw away glass bottles.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. How does the robotic bin navigate through crowded station concourses without hitting people?</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A" onchange="checkAll()"> A station worker guides it using a long remote-control wire.</label>
+                <label><input type="radio" name="q2" value="1" data-letter="B" onchange="checkAll()"> It uses advanced sensors and cameras to detect obstacles and pedestrians.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C" onchange="checkAll()"> It travels only in a straight track built under the tiles.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> It sounds a loud siren so pedestrians run out of its path.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. What does the robot do when it encounters an obstacle or someone blocking its way?</span>
+                <label><input type="radio" name="q3" value="1" data-letter="A" onchange="checkAll()"> It slows down, stops safely, or smoothly steers around the obstacle.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="B" onchange="checkAll()"> It turns off completely and waits for the next morning.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C" onchange="checkAll()"> It flashes bright red lights and sounds an alarm.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> It returns directly to its charging station right away.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. What kinds of items are passengers encouraged to dispose of inside the roaming robot?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A" onchange="checkAll()"> Bulky luggage, umbrellas, and winter jackets</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B" onchange="checkAll()"> Electronic gadgets and broken laptops</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C" onchange="checkAll()"> Small everyday litter, snack wrappers, and drink containers</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> Leftover soup and uncooked food supplies</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. How does having roaming rubbish robots help station cleaning staff?</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A" onchange="checkAll()"> Cleaners no longer need to report for work at all.</label>
+                <label><input type="radio" name="q5" value="1" data-letter="B" onchange="checkAll()"> It reduces scattered litter and lightens the physical burden on sanitation workers.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C" onchange="checkAll()"> It forces cleaners to repair electronic robots instead of sweeping.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> It carries cleaning supplies for workers across train tracks.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">7. What does the word "autonomous" mean when describing this robot?</span>
+                <label><input type="radio" name="q6" value="0" data-letter="A" onchange="checkAll()"> Driven manually by a steering wheel</label>
+                <label><input type="radio" name="q6" value="1" data-letter="B" onchange="checkAll()"> Able to operate and navigate independently without direct human control</label>
+                <label><input type="radio" name="q6" value="0" data-letter="C" onchange="checkAll()"> Powered only by disposable AA batteries</label>
+                <label><input type="radio" name="q6" value="0" data-letter="D" onchange="checkAll()"> Moving at very high speeds like a sports car</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. What is the primary purpose of conducting trial runs with this robotic bin?</span>
+                <label><input type="radio" name="q7" value="0" data-letter="A" onchange="checkAll()"> To charge passengers money for disposing of their rubbish</label>
+                <label><input type="radio" name="q7" value="0" data-letter="B" onchange="checkAll()"> To test if the robot can replace train ticket conductors</label>
+                <label><input type="radio" name="q7" value="1" data-letter="C" onchange="checkAll()"> To assess its effectiveness and safety in keeping busy public transit hubs clean</label>
+                <label><input type="radio" name="q7" value="0" data-letter="D" onchange="checkAll()"> To sell advertising posters pasted onto its sides</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions</h3>
+
+            <div class="question-block">
+                <span class="q-text">9. If you can deploy the roaming rubbish bin robot in Singapore, where will choose and why?</span>
+                <textarea id="q8_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. What are two advantages of having a rubbish bin that moves toward people compared to a traditional stationary bin?</span>
+                <textarea id="q9_text" oninput="checkAll()" placeholder="Write your answer in a complete sentence here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results?</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqAnswered = 0;
+        for(let i=0; i<8; i++) {
+            const radios = document.getElementsByName('q' + i);
+            for(let r=0; r<radios.length; r++) {
+                if(radios[r].checked) { mcqAnswered++; break; }
+            }
+        }
+        
+        const q9Val = document.getElementById('q8_text').value.trim();
+        const q10Val = document.getElementById('q9_text').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (mcqAnswered === 8 && q9Val.length > 5 && q10Val.length > 5) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P4 ENGLISH QUIZ RESULTS: THE ROAMING RUBBISH ROBOT ---\n\n";
+        
+        const correctDetails = [
+            { text: "Shinjuku Station in Tokyo", letter: "B" },
+            { text: "Public bins were largely removed due to historical safety and cleanliness concerns.", letter: "B" },
+            { text: "It uses advanced sensors and cameras to detect obstacles and pedestrians.", letter: "B" },
+            { text: "It slows down, stops safely, or smoothly steers around the obstacle.", letter: "A" },
+            { text: "Small everyday litter, snack wrappers, and drink containers", letter: "C" },
+            { text: "It reduces scattered litter and lightens the physical burden on sanitation workers.", letter: "B" },
+            { text: "Able to operate and navigate independently without direct human control", letter: "B" },
+            { text: "To assess its effectiveness and safety in keeping busy public transit hubs clean", letter: "C" }
+        ];
+
+        for(let i=0; i<8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+            
+            if(isCorrect) {
+                score++;
+                emailBody += `Q${i+1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i+1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const q9Answer = document.getElementById('q8_text').value;
+        const q10Answer = document.getElementById('q9_text').value;
+
+        emailBody += `\nQ9 If you can deploy the roaming rubbish bin robot in Singapore, where will choose and why?\nAnswer: ${q9Answer}\n`;
+        emailBody += `\nQ10 What are two advantages of having a rubbish bin that moves toward people compared to a traditional stationary bin?\nAnswer: ${q10Answer}\n`;
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 8`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=The Roaming Rubbish Robot Quiz Results&body=${encodeURIComponent(emailBody)}`;
+        
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/8</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Send to Teacher</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+        
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>
