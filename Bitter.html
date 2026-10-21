@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>走红的“吃苦夏令营”</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 260px; margin-top: 10px; font-family: monospace; font-size: 0.85em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>走红的“吃苦夏令营”</h1>
+    <p class="instruction" id="topInstruction">请完成所有 6 道选择题和 4 道问答题以开启提交功能。</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">第一部分：选择题 (Part A: 6 Multiple Choice Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. 为什么不少家长愿意花费数千至上万元人民币送孩子去“吃苦夏令营”？</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> A) 希望孩子能学会专业的农业种植技术，以后成为农场主。</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> B) 希望通过艰苦的农村劳动，改掉孩子沉迷手机、散漫等不良习惯，感受金钱来之不易。</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> C) 因为夏令营提供风景优美的度假酒店和丰富的娱乐活动。</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> D) 学校规定每位学生在暑假期间都必须参加农村夏令营。</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. 参加这类夏令营的孩子在偏远山村通常需要进行哪些劳动？</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> A) 每天在冷气房里复习数学题和编写电脑程序。</label>
+                <label><input type="radio" name="q1" value="0" data-letter="B" onchange="checkAll()"> B) 跟着专业导游游览风景名胜和购买当地特产。</label>
+                <label><input type="radio" name="q1" value="1" data-letter="C" onchange="checkAll()"> C) 住在农户家砍柴、喂猪、挖马铃薯等，体验农耕劳作。</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> D) 每天在运动场上进行高强度的篮球和游泳训练。</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. 如果学员在夏令营中无法完成分配的劳动任务，会面临怎样的惩罚？</span>
+                <label><input type="radio" name="q2" value="1" data-letter="A" onchange="checkAll()"> A) 只能以简单的水煮马铃薯充饥。</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B" onchange="checkAll()"> B) 被立刻遣送回家并不退还任何费用。</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C" onchange="checkAll()"> C) 被要求整晚在农田里站立罚站。</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> D) 必须罚抄写字典一百页。</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. 为了说服孩子进山，主办机构甚至向家长提供了什么建议？</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A" onchange="checkAll()"> A) 答应给孩子买最新的名牌智能手机作为奖励。</label>
+                <label><input type="radio" name="q3" value="1" data-letter="B" onchange="checkAll()"> B) 以“乡村研学旅行”为名，把孩子“骗”到营地去。</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C" onchange="checkAll()"> C) 让学校老师出面强行要求学生报名。</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> D) 承诺孩子只要去一天就能拿到夏令营奖金。</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. 上海一名马姓家长反馈其7岁女儿参加十多天夏令营后的情况是怎样的？</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A" onchange="checkAll()"> A) 女儿变得非常勤劳，主动帮妈妈做所有家务。</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B" onchange="checkAll()"> B) 女儿爱上了农村生活，吵着要转学去农村学校。</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C" onchange="checkAll()"> C) 回家后拖沓、赖床及挑食的不良习惯完全没有改善。</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> D) 女儿每天早起晨跑，身体素质大幅度提升。</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. 教育专家认为，孩子在严苛环境下表现出的“懂事”或“悔过”往往是什么原因造成的？</span>
+                <label><input type="radio" name="q5" value="1" data-letter="A" onchange="checkAll()"> A) 大多是出自恐惧的短期应激反应，并非真正的思想认知觉醒。</label>
+                <label><input type="radio" name="q5" value="0" data-letter="B" onchange="checkAll()"> B) 是因为孩子彻底理解了父母赚钱养家的艰辛。</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C" onchange="checkAll()"> C) 说明短期的重体力劳动能够彻底治愈手机成瘾。</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> D) 是因为农户家给予了孩子比父母更多的温暖和关爱。</label>
+            </div>
+
+            <h3 class="section-title">第二部分：问答题 (Part B: 4 Written Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">7. 请简要说明“吃苦夏令营”主办机构向家长宣传的主要教育目标是什么？</span>
+                <textarea id="written_7" class="written-input" oninput="checkAll()" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. 为什么不同家长对“吃苦夏令营”的实际效果评价会出现截然相反的两极分化？请结合文中的两个例子说明。</span>
+                <textarea id="written_8" class="written-input" oninput="checkAll()" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">9. 教育专家指出孩子沉迷手机、生活散漫的根本原因是什么？为什么短期吃苦无法真正解决问题？</span>
+                <textarea id="written_9" class="written-input" oninput="checkAll()" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. 如果你身边有同学生活作息懒散、沉迷电子设备，你认为除了送去“吃苦”之外，还有什么更有效、更健康的改进方法？</span>
+                <textarea id="written_10" class="written-input" oninput="checkAll()" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">提交结果</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqComplete = true;
+        for (let i = 0; i < 6; i++) {
+            const checkedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!checkedRadio) {
+                mcqComplete = false;
+                break;
+            }
+        }
+
+        const textareas = document.querySelectorAll('.written-input');
+        let writtenComplete = true;
+        textareas.forEach(ta => {
+            if (ta.value.trim().length < 3) {
+                writtenComplete = false;
+            }
+        });
+
+        const btn = document.getElementById('submitBtn');
+        if (mcqComplete && writtenComplete) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.classList.remove('ready');
+        btn.textContent = "已提交";
+        document.getElementById('topInstruction').textContent = "测验已锁定。结果已在下方生成。";
+
+        let score = 0;
+        let emailBody = "--- P4 CHINESE QUIZ RESULTS: 走红的“吃苦夏令营” ---\n\n";
+
+        const correctDetails = [
+            { text: "希望通过艰苦的农村劳动，改掉孩子沉迷手机、散漫等不良习惯，感受金钱来之不易。", letter: "B" },
+            { text: "住在农户家砍柴、喂猪、挖马铃薯等，体验农耕劳作。", letter: "C" },
+            { text: "只能以简单的水煮马铃薯充饥。", letter: "A" },
+            { text: "以“乡村研学旅行”为名，把孩子“骗”到营地去。", letter: "B" },
+            { text: "回家后拖沓、赖床及挑食的不良习惯完全没有改善。", letter: "C" },
+            { text: "大多是出自恐惧的短期应激反应，并非真正的思想认知觉醒。", letter: "A" }
+        ];
+
+        for (let i = 0; i < 6; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+
+            if (isCorrect) {
+                score++;
+                emailBody += `Q${i + 1} 答案: ${userLetter}, 正确.\n`;
+            } else {
+                emailBody += `Q${i + 1} 答案: ${userLetter}, 错误. 正确答案是 ${correctLetter}.\n`;
+            }
+        }
+
+        const writtenQuestions = [
+            {
+                num: 7,
+                question: "请简要说明“吃苦夏令营”主办机构向家长宣传的主要教育目标是什么？",
+                modelAnswer: "主办机构宣称通过让学员住在农村进行砍柴、喂猪等重体力农活，能够磨炼孩子的意志，纠正沉迷手机与懒散作息，并让孩子切身感受生活艰辛，懂得金钱和粮食的来之不易。",
+                sourceParagraph3Sentences: "今年暑假，一种主打苦难教育的“吃苦夏令营”在中国走红，不少家长花费人民币数千至上万元，将孩子送到偏远山村农耕劳动。主办机构宣称，这样的活动能矫正孩子沉迷手机、作息散漫等不良习惯。相关机构披露，活动主要希望让孩子切身感受辛苦，知道金钱得来不易。"
+            },
+            {
+                num: 8,
+                question: "为什么不同家长对“吃苦夏令营”的实际效果评价会出现截然相反的两极分化？请结合文中的两个例子说明。",
+                modelAnswer: "因为部分年长孩子在适应劳动后能有所转变（如成都初一女生逐渐适应并觉得有趣）；但对于年龄较小的孩子往往毫无长期效果（如上海7岁女孩回家后依然挑食、拖沓、赖床，坏习惯毫无改善）。",
+                sourceParagraph3Sentences: "对于夏令营的实际成效，家长的评价则是两极。成都一名高姓家长表示，他那位就读初一的女儿原本沉迷手机且作息散漫，参加夏令营后虽然抱怨农活辛苦，最后逐渐适应劳动，更认为过程有趣。不过，上海一名马姓家长指出，他的7岁女儿参与10多天的夏令营后回到家中，此前拖沓、赖床及挑食的生活习惯完全没有改善。"
+            },
+            {
+                num: 9,
+                question: "教育专家指出孩子沉迷手机、生活散漫的根本原因是什么？为什么短期吃苦无法真正解决问题？",
+                modelAnswer: "专家指出不良习惯根源于长期的家庭教养方式不当与亲子沟通缺失。孩子在严酷环境下表现出的听话只是因恐惧产生的短期应激反应，并非内心认知觉醒，回到原本熟悉的生活环境中很容易再次反弹复发。",
+                sourceParagraph3Sentences: "中国教育专家指出，孩子沉迷手机或拖拉懒散，往往源于长期教养方式不当及亲子沟通缺失，绝非短期高强度劳动所能根治。孩子在严苛环境下展现的“懂事”或“悔过”，大多是出自恐惧的短期应激反应，并非真正的认知觉醒。一旦回到原本的生活环境，各种问题极易出现反弹。"
+            },
+            {
+                num: 10,
+                question: "如果你身边有同学生活作息懒散、沉迷电子设备，你认为除了送去“吃苦”之外，还有什么更有效、更健康的改进方法？",
+                modelAnswer: "家长与孩子应建立平等的沟通，制定合理的电子产品使用规则与作息表；同时通过培养户外运动、阅读、手工或团队艺术等有益兴趣爱好，丰富现实生活，从而自然减少对手机的依赖。",
+                sourceParagraph3Sentences: "教育专家建议，改变孩子的拖延与网络依赖需要从建立融洽的家庭日常关系和规则入手。父母应当以身作则减少使用电子产品的时间，并多陪伴孩子参与户外体育锻炼与益智活动。只有建立起长期的正面激励与良性生活习惯，才能从根本上帮助孩子健康自律地成长。"
+            }
+        ];
+
+        emailBody += "\n--- 第二部分：问答题学生作答与参考段落 ---\n";
+
+        for (let j = 0; j < writtenQuestions.length; j++) {
+            const wq = writtenQuestions[j];
+            const studentInput = document.getElementById(`written_${wq.num}`).value.trim();
+            emailBody += `\nQ${wq.num}: ${wq.question}\n`;
+            emailBody += `学生答案: ${studentInput}\n`;
+            emailBody += `参考答案: ${wq.modelAnswer}\n`;
+            emailBody += `文章对应段落前3句:\n"${wq.sourceParagraph3Sentences}"\n`;
+        }
+
+        emailBody += `\n选择题总得分 (TOTAL MCQ SCORE): ${score} / 6`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=走红的“吃苦夏令营”测验结果&body=${encodeURIComponent(emailBody)}`;
+
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">测验完成! 选择题得分: ${score}/6</h2>
+            <p style="color: #e67e22; font-weight: bold;">答案已锁定，你无法再做更改。</p>
+            <p>你的测验结果已准备好发送至： <strong>${email}</strong>。</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">发给老师 (Send to Teacher)</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>

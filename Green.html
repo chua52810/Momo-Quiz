@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Mystery of the Emerald Star</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 260px; margin-top: 10px; font-family: monospace; font-size: 0.85em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>The Mystery of the Emerald Star</h1>
+    <p class="instruction" id="topInstruction">Complete all 6 MCQs and 4 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions (6 Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. Why were astronomers so astonished by the newly identified star?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> A) It is the fastest-spinning star ever discovered.</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> B) It radiates a distinct green light, a color long considered impossible for stars to exhibit.</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> C) It is completely invisible to modern space telescopes.</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> D) It was found orbiting very close inside our own solar system.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. Why do normal stars in the universe never appear green to human eyes?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> A) Star light is always blocked by green space dust.</label>
+                <label><input type="radio" name="q1" value="1" data-letter="B" onchange="checkAll()"> B) Stars emit a continuous spectrum of colors that mix together and get perceived as white, yellow, or orange.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="C" onchange="checkAll()"> C) Space telescopes are built without any green sensors.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> D) Earth's atmosphere filters out all shades of green before light lands on telescopes.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. What unique physical circumstance creates the striking emerald hue of this particular star?</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A" onchange="checkAll()"> A) Huge fields of green vegetation growing on planets orbiting the star.</label>
+                <label><input type="radio" name="q2" value="1" data-letter="B" onchange="checkAll()"> B) An unusual surrounding gas shell rich in excited elements that emits narrow green wavelengths while blocking other light.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C" onchange="checkAll()"> C) Solid blocks of emerald crystals floating inside the star's nuclear core.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> D) A reflection of sunlight bouncing off an icy moon nearby.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. What type of scientific tool did astrophysicists rely on to analyze the light wavelengths of this star?</span>
+                <label><input type="radio" name="q3" value="1" data-letter="A" onchange="checkAll()"> A) High-resolution spectrometers mounted on large astronomical observatories.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="B" onchange="checkAll()"> B) Standard handheld binoculars used by birdwatchers.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C" onchange="checkAll()"> C) Weather radar satellites tracking cloud movements.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> D) Deep-sea sonar scanners detecting sound waves underwater.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. What does this rare cosmic discovery prove about our current understanding of stellar physics?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A" onchange="checkAll()"> A) Our previous space models are completely incorrect and must be abandoned.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B" onchange="checkAll()"> B) All existing stars will eventually turn green over billions of years.</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C" onchange="checkAll()"> C) Extreme astrophysical conditions can produce celestial phenomena that challenge textbook assumptions.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> D) Astronomers do not need telescopes to study deep-space objects anymore.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. How have international research teams reacted to the identification of this green star?</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A" onchange="checkAll()"> A) They ignored the findings because they believed it was an optical error.</label>
+                <label><input type="radio" name="q5" value="1" data-letter="B" onchange="checkAll()"> B) They mobilized follow-up observations across multiple space observatories to study its behavior.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C" onchange="checkAll()"> C) They shut down all space telescopes to avoid blinding their sensors.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> D) They recommended sending a manned spacecraft to the star immediately.</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions (4 Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">7. In scientific terms, why do standard blackbody thermal emitters like ordinary stars fail to display a green appearance to human observers?</span>
+                <textarea id="written_7" class="written-input" oninput="checkAll()" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. How does the envelope of gas surrounding this unusual star manipulate optical wavelengths to produce an apparent green color?</span>
+                <textarea id="written_8" class="written-input" oninput="checkAll()" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">9. Why is the discovery of an apparent "green star" considered a valuable milestone for modern astrophysics?</span>
+                <textarea id="written_9" class="written-input" oninput="checkAll()" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. What role did advanced spectroscopic technology play in confirming that this celestial object was genuinely unique?</span>
+                <textarea id="written_10" class="written-input" oninput="checkAll()" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results?</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqComplete = true;
+        for (let i = 0; i < 6; i++) {
+            const checkedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!checkedRadio) {
+                mcqComplete = false;
+                break;
+            }
+        }
+
+        const textareas = document.querySelectorAll('.written-input');
+        let writtenComplete = true;
+        textareas.forEach(ta => {
+            if (ta.value.trim().length < 3) {
+                writtenComplete = false;
+            }
+        });
+
+        const btn = document.getElementById('submitBtn');
+        if (mcqComplete && writtenComplete) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.classList.remove('ready');
+        btn.textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P4 ENGLISH QUIZ RESULTS: THE MYSTERY OF THE EMERALD STAR ---\n\n";
+
+        const correctDetails = [
+            { text: "It radiates a distinct green light, a color long considered impossible for stars to exhibit.", letter: "B" },
+            { text: "Stars emit a continuous spectrum of colors that mix together and get perceived as white, yellow, or orange.", letter: "B" },
+            { text: "An unusual surrounding gas shell rich in excited elements that emits narrow green wavelengths while blocking other light.", letter: "B" },
+            { text: "High-resolution spectrometers mounted on large astronomical observatories.", letter: "A" },
+            { text: "Extreme astrophysical conditions can produce celestial phenomena that challenge textbook assumptions.", letter: "C" },
+            { text: "They mobilized follow-up observations across multiple space observatories to study its behavior.", letter: "B" }
+        ];
+
+        for (let i = 0; i < 6; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+
+            if (isCorrect) {
+                score++;
+                emailBody += `Q${i + 1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i + 1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const writtenQuestions = [
+            {
+                num: 7,
+                question: "In scientific terms, why do standard blackbody thermal emitters like ordinary stars fail to display a green appearance to human observers?",
+                modelAnswer: "Stars radiate light across a wide thermal spectrum governed by blackbody radiation laws. When a star's peak emission falls in the green wavelength range, it simultaneously emits significant quantities of red and blue light, causing human eyes to perceive the blended illumination as white or yellow rather than pure green.",
+                sourceParagraph3Sentences: "In conventional astronomy, stars behave essentially like thermal blackbody radiators whose perceived coloration directly reflects surface temperature. As thermal energy shifts peak emission into the green portion of the visible spectrum, substantial amounts of accompanying red and blue photons are always released concurrently. The human visual system invariably synthesizes these broad multi-wavelength emissions into white or warm yellow light, rendering a truly green star an optical impossibility under standard conditions."
+            },
+            {
+                num: 8,
+                question: "How does the envelope of gas surrounding this unusual star manipulate optical wavelengths to produce an apparent green color?",
+                modelAnswer: "The star is enshrouded by a circumstellar envelope containing specific excited gases that emit powerful narrow-band green emission lines while selectively absorbing and scattering away other wavelengths, allowing predominantly green radiation to escape into space.",
+                sourceParagraph3Sentences: "The remarkable emerald appearance is generated not by the bare stellar surface, but by a dense circumstellar envelope rich in specialized gases. When energized by radiation from the central core, these gaseous materials generate intense narrow-band emission spikes predominantly in the green wavelengths. At the same time, dust and dense layers within the envelope effectively filter out competing red and blue frequencies, allowing a distinct green glow to dominate."
+            },
+            {
+                num: 9,
+                question: "Why is the discovery of an apparent 'green star' considered a valuable milestone for modern astrophysics?",
+                modelAnswer: "It proves that complex circumstellar environments can radically transform stellar emissions, providing scientists with an extraordinary natural laboratory to investigate rare stages of stellar evolution, chemical interactions, and extreme radiation dynamics.",
+                sourceParagraph3Sentences: "Identifying this unique stellar object represents an important breakthrough for planetary and stellar astrophysicists alike. It provides tangible proof that dynamic circumstellar environments can completely overturn classic assumptions regarding how stars appear from afar. Researchers now have an invaluable natural laboratory to study extreme interaction dynamics between aging stars and surrounding gaseous shells."
+            },
+            {
+                num: 10,
+                question: "What role did advanced spectroscopic technology play in confirming that this celestial object was genuinely unique?",
+                modelAnswer: "Spectroscopic instruments allowed scientists to split the star's incoming beam into individual wavelengths, confirming that the green glow was a genuine physical signature produced by specific elemental emission lines rather than an imaging defect or telescope artifact.",
+                sourceParagraph3Sentences: "Astronomers relied on high-precision spectroscopic instruments to break down the star's incoming radiation into distinct spectral components. The resulting data revealed unequivocal emission spikes corresponding to specific ionized gases surrounding the star. This meticulous spectroscopic validation ruled out simple instrument glare or background noise, confirming that the emerald luminescence is genuine."
+            }
+        ];
+
+        emailBody += "\n--- PART B: WRITTEN QUESTIONS & SOURCE EXCERPTS ---\n";
+
+        for (let j = 0; j < writtenQuestions.length; j++) {
+            const wq = writtenQuestions[j];
+            const studentInput = document.getElementById(`written_${wq.num}`).value.trim();
+            emailBody += `\nQ${wq.num}: ${wq.question}\n`;
+            emailBody += `Student's Answer: ${studentInput}\n`;
+            emailBody += `Model Answer: ${wq.modelAnswer}\n`;
+            emailBody += `Source Paragraph Excerpt (First 3 Sentences):\n"${wq.sourceParagraph3Sentences}"\n`;
+        }
+
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 6`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=The Mystery of the Emerald Star Quiz Results&body=${encodeURIComponent(emailBody)}`;
+
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/6</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Send to Teacher</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>

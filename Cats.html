@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Secret Behind Cats Staring at Walls</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 260px; margin-top: 10px; font-family: monospace; font-size: 0.85em; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>The Secret Behind Cats Staring at Walls</h1>
+    <p class="instruction" id="topInstruction">Complete all 6 MCQs and 4 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions (6 Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. What is the main reason cats stare intently at what appears to be a blank wall?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A" onchange="checkAll()"> A) They are communicating with ghostly spirits.</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B" onchange="checkAll()"> B) Their superior senses detect subtle sounds, lights, or movements invisible to humans.</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C" onchange="checkAll()"> C) They do not like the paint color on the room's walls.</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D" onchange="checkAll()"> D) Their eyesight is very weak and blurry in well-lit rooms.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. How does a cat's hearing ability compare to that of a human?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A" onchange="checkAll()"> A) Humans can hear much higher sound frequencies than cats.</label>
+                <label><input type="radio" name="q1" value="1" data-letter="B" onchange="checkAll()"> B) Cats can hear high-frequency sounds up to around 64,000 Hz, far beyond the human limit of 20,000 Hz.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="C" onchange="checkAll()"> C) Cats and humans have the exact same hearing range.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D" onchange="checkAll()"> D) Cats can only hear low rumbling sounds like thunder.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. What kind of sounds hidden behind walls might grab a cat's undivided attention?</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A" onchange="checkAll()"> A) Loud music coming from passing cars outside</label>
+                <label><input type="radio" name="q2" value="1" data-letter="B" onchange="checkAll()"> B) Water moving through pipes, electrical humming, or tiny insects inside wall cavities</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C" onchange="checkAll()"> C) The sound of their own footsteps on the carpet</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D" onchange="checkAll()"> D) Heavy airplanes flying high in the sky</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. What special visual capability allows cats to see subtle marks on walls that humans miss?</span>
+                <label><input type="radio" name="q3" value="1" data-letter="A" onchange="checkAll()"> A) They can perceive ultraviolet (UV) light wavelengths and micro-movements in dim lighting.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="B" onchange="checkAll()"> B) They can zoom in on objects like a camera lens.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C" onchange="checkAll()"> C) They can see through solid plaster and bricks.</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D" onchange="checkAll()"> D) They see everything around them in black and white only.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. Why are room corners and ceiling junctions frequent targets for a cat's fixed gaze?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A" onchange="checkAll()"> A) Corners are the warmest spots in the house.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B" onchange="checkAll()"> B) Cats use corners to sharpen their claws.</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C" onchange="checkAll()"> C) Corners focus and amplify sounds and vibrations from intersecting walls and cavities.</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D" onchange="checkAll()"> D) Corners are where food bowls are normally stored.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. What dangerous behavior should NOT be confused with normal wall staring and requires immediate veterinary care?</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A" onchange="checkAll()"> A) A cat twitching its tail while watching a dust particle</label>
+                <label><input type="radio" name="q5" value="1" data-letter="B" onchange="checkAll()"> B) Head pressing, where a cat compulsively pushes its head against a wall with a vacant expression</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C" onchange="checkAll()"> C) A cat stretching its paws before taking a nap</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D" onchange="checkAll()"> D) A cat turning its ears independently to listen to birds</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions (4 Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">7. How does a cat's natural hunting instinct explain why it stays completely still while staring at a spot on the wall?</span>
+                <textarea id="written_7" class="written-input" oninput="checkAll()" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. Why does wall staring often occur more noticeably late at night or in the early hours of the morning?</span>
+                <textarea id="written_8" class="written-input" oninput="checkAll()" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">9. Apart from normal curiosity, what medical condition might cause an elderly cat to stare aimlessly at walls or corners?</span>
+                <textarea id="written_9" class="written-input" oninput="checkAll()" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. If an indoor cat stares at walls due to boredom, what are two practical things a pet owner can do to redirect its attention?</span>
+                <textarea id="written_10" class="written-input" oninput="checkAll()" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results?</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        // Check that all 6 radio groups have one option selected
+        let mcqComplete = true;
+        for (let i = 0; i < 6; i++) {
+            const checkedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!checkedRadio) {
+                mcqComplete = false;
+                break;
+            }
+        }
+
+        // Check that all 4 written answers have text entered (at least 3 characters)
+        const textareas = document.querySelectorAll('.written-input');
+        let writtenComplete = true;
+        textareas.forEach(ta => {
+            if (ta.value.trim().length < 3) {
+                writtenComplete = false;
+            }
+        });
+
+        const btn = document.getElementById('submitBtn');
+        if (mcqComplete && writtenComplete) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.classList.remove('ready');
+        btn.textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P4 ENGLISH QUIZ RESULTS: THE SECRET BEHIND CATS STARING AT WALLS ---\n\n";
+
+        const correctDetails = [
+            { text: "Their superior senses detect subtle sounds, lights, or movements invisible to humans.", letter: "B" },
+            { text: "Cats can hear high-frequency sounds up to around 64,000 Hz, far beyond the human limit of 20,000 Hz.", letter: "B" },
+            { text: "Water moving through pipes, electrical humming, or tiny insects inside wall cavities", letter: "B" },
+            { text: "They can perceive ultraviolet (UV) light wavelengths and micro-movements in dim lighting.", letter: "A" },
+            { text: "Corners focus and amplify sounds and vibrations from intersecting walls and cavities.", letter: "C" },
+            { text: "Head pressing, where a cat compulsively pushes its head against a wall with a vacant expression", letter: "B" }
+        ];
+
+        for (let i = 0; i < 6; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected.getAttribute('data-letter');
+            const isCorrect = selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+
+            if (isCorrect) {
+                score++;
+                emailBody += `Q${i + 1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i + 1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const writtenQuestions = [
+            {
+                num: 7,
+                question: "How does a cat's natural hunting instinct explain why it stays completely still while staring at a spot on the wall?",
+                modelAnswer: "Cats are ambush predators by nature, meaning they patiently track potential prey without making noise. When their heightened senses detect even tiny rustles or subtle shadows near a wall, they freeze into a focused stalker pose to pinpoint the source before striking.",
+                sourceParagraph3Sentences: "Cats are wired by evolution to be ambush hunters who rely on patience and razor-sharp sensory tracking. Even in comfortable homes, their innate predator drive compels them to stalk potential prey at the first hint of movement or sound. When a cat spots a miniscule shifting shadow or hears a faint skitter behind plaster, it locks its body in place to calculate its next move without scaring the target away."
+            },
+            {
+                num: 8,
+                question: "Why does wall staring often occur more noticeably late at night or in the early hours of the morning?",
+                modelAnswer: "Cats are crepuscular creatures, meaning they are biologically most active during dawn and dusk when natural hunting instincts kick in. In addition, nighttime brings a much quieter environment with fewer household distractions, allowing faint wall vibrations, pipe sounds, and nocturnal insect scurries to stand out clearly.",
+                sourceParagraph3Sentences: "Felines are naturally crepuscular animals that reach their peak activity levels during the twilight hours of dusk and dawn. During these periods, indoor noise dies down, creating a dead-quiet environment where subtle sounds become drastically magnified. Under low-light conditions, shadows and nighttime critters inside walls become much easier for sensitive feline eyes and ears to pick up."
+            },
+            {
+                num: 9,
+                question: "Apart from normal curiosity, what medical condition might cause an elderly cat to stare aimlessly at walls or corners?",
+                modelAnswer: "Elderly cats may suffer from Feline Cognitive Dysfunction (FCD), which is similar to dementia or Alzheimer's in humans. This neurological condition leads to confusion, disorientation, wandering, and staring blankly at walls without any actual sensory target.",
+                sourceParagraph3Sentences: "In senior cats, prolonged and vacant wall staring can sometimes be a sign of Feline Cognitive Dysfunction, a condition analogous to dementia in people. Affected older cats often suffer from mental confusion, disrupted sleep patterns, and spatial disorientation. This cognitive decline may cause them to become trapped in room corners or gaze aimlessly at blank walls without responding to their surroundings."
+            },
+            {
+                num: 10,
+                question: "If an indoor cat stares at walls due to boredom, what are two practical things a pet owner can do to redirect its attention?",
+                modelAnswer: "Owners can engage the cat with interactive toys like feather wands or puzzle feeders to stimulate its predatory instincts. Providing vertical climbing cat trees, window perches, and scheduled daily play sessions will also keep the cat's body and mind actively occupied.",
+                sourceParagraph3Sentences: "When indoor cats lack adequate mental stimulation and environmental enrichment, boredom can cause repetitive or fixated behaviors like wall watching. Pet parents can resolve this understimulation by introducing daily interactive play sessions with feather wands and laser pointers. Setting up window perches, climbing trees, and food puzzle toys gives indoor felines constructive channels for their energy and curiosity."
+            }
+        ];
+
+        emailBody += "\n--- PART B: WRITTEN QUESTIONS & SOURCE EXCERPTS ---\n";
+
+        for (let j = 0; j < writtenQuestions.length; j++) {
+            const wq = writtenQuestions[j];
+            const studentInput = document.getElementById(`written_${wq.num}`).value.trim();
+            emailBody += `\nQ${wq.num}: ${wq.question}\n`;
+            emailBody += `Student's Answer: ${studentInput}\n`;
+            emailBody += `Model Answer: ${wq.modelAnswer}\n`;
+            emailBody += `Source Paragraph Excerpt (First 3 Sentences):\n"${wq.sourceParagraph3Sentences}"\n`;
+        }
+
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 6`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const mailtoUrl = `mailto:${email}?subject=The Secret Behind Cats Staring at Walls Quiz Results&body=${encodeURIComponent(emailBody)}`;
+
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/6</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <p><a href="${mailtoUrl}" style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Send to Teacher</a></p>
+            <textarea readonly class="copy-box">${emailBody.replace(/\\n/g, '\n')}</textarea>
+        `;
+
+        window.location.href = mailtoUrl;
+    }
+</script>
+
+</body>
+</html>
