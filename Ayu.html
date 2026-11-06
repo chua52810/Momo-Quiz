@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>神奇阿宇</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 260px; margin-top: 10px; font-family: monospace; font-size: 0.85em; }
+        .btn-action { background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; border: none; cursor: pointer; margin: 5px; }
+        .btn-action:hover { background: #2980b9; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>神奇阿宇</h1>
+    <p class="instruction" id="topInstruction">请完成所有 6 道选择题和 4 道问答题以开启提交功能。</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">第一部分：选择题 (Part A: 6 Multiple Choice Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. 宋星宇（网名“神奇阿宇”）来自中国的哪个省份和城市？</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A"> A) 湖南省长沙市</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B"> B) 湖北省恩施市</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C"> C) 四川省成都市</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D"> D) 广东省广州市</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. 宋星宇建造他的第一架模型飞机的材料和资金是从哪里来的？</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A"> A) 依靠学校老师提供的科学实验经费</label>
+                <label><input type="radio" name="q1" value="1" data-letter="B"> B) 搜集废旧材料，并利用网上航空爱好者的捐款</label>
+                <label><input type="radio" name="q1" value="0" data-letter="C"> C) 用父亲木材厂所有的利润购买新零件</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D"> D) 参加电视科技竞赛赢得的一等奖奖金</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. 2022年6月，宋星宇为了实现自己的航空梦想，做出了什么决定？</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A"> A) 报名参加外国大学的航空工程课程</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B"> B) 搬到北京去寻找科技公司的工作</label>
+                <label><input type="radio" name="q2" value="1" data-letter="C"> C) 贷款将一间废弃的棚屋改造成自己的私人实验室</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D"> D) 卖掉父亲的木材厂买下飞机场地</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. 去年九月，宋星宇做过哪一项奇特又大胆的空中实验？</span>
+                <label><input type="radio" name="q3" value="1" data-letter="A"> A) 利用热气球将一个家具齐全的客厅升到云端，并在空中煎鸡蛋、做三明治</label>
+                <label><input type="radio" name="q3" value="0" data-letter="B"> B) 驾驶无人机在万米高空拍摄日全食</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C"> C) 穿着潜水服从飞机跳入长江中游泳</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D"> D) 带着宠物小狗一起乘坐滑翔伞飞越大山</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. 宋星宇制作滑翔翼时，为什么将微型涡轮喷气发动机改换成电力推进系统？</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A"> A) 因为电力推进系统飞行的声音更加好听</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B"> B) 因为微型涡轮喷气发动机的重量太重</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C"> C) 因为第一个版本在测试过程中起火了</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D"> D) 因为当地政府禁止使用任何喷气燃料</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. 凭借悬浮滑板在全国走红并收获数百万粉丝后，宋星宇选择怎样做？</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A"> A) 签约加入娱乐公司成为全职电影演员</label>
+                <label><input type="radio" name="q5" value="1" data-letter="B"> B) 拒绝媒体和商业合作，专注于测试如何让滑板飞得更高</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C"> C) 开设网店高价售卖自己的飞行设备</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D"> D) 停止所有飞行实验，回家接手木材厂</label>
+            </div>
+
+            <h3 class="section-title">第二部分：问答题 (Part B: 4 Written Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">7. 宋星宇在2024年尝试了哪两项充满危险与挫折的高空飞行实验？</span>
+                <textarea id="written_7" class="written-input" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. 在那次险些丧命的跳伞事件发生前几个小时，宋星宇录下的遗嘱内容是什么？</span>
+                <textarea id="written_8" class="written-input" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">9. 宋星宇最终成功制造出的悬浮滑板具备哪些令人惊叹的性能特点？</span>
+                <textarea id="written_9" class="written-input" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. 面对研发过程中的种种艰辛与失败，宋星宇抱持着怎样的心态？从他的身上你学到了什么？</span>
+                <textarea id="written_10" class="written-input" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">提交结果</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqComplete = true;
+        for (let i = 0; i < 6; i++) {
+            const checkedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!checkedRadio) {
+                mcqComplete = false;
+                break;
+            }
+        }
+
+        const textareas = document.querySelectorAll('.written-input');
+        let writtenComplete = true;
+        textareas.forEach(ta => {
+            if (ta.value.trim().length === 0) {
+                writtenComplete = false;
+            }
+        });
+
+        const btn = document.getElementById('submitBtn');
+        if (mcqComplete && writtenComplete) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', checkAll);
+        radio.addEventListener('click', checkAll);
+    });
+
+    document.querySelectorAll('.written-input').forEach(ta => {
+        ta.addEventListener('input', checkAll);
+        ta.addEventListener('keyup', checkAll);
+        ta.addEventListener('change', checkAll);
+        ta.addEventListener('blur', checkAll);
+    });
+
+    function copyResults() {
+        const copyText = document.getElementById('reportTextarea');
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value).then(() => {
+            alert("成绩已成功复制到剪贴板！您可以直接粘贴到邮件中发给老师。");
+        }).catch(() => {
+            document.execCommand('copy');
+            alert("成绩已成功复制到剪贴板！");
+        });
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.classList.remove('ready');
+        btn.textContent = "已提交";
+        document.getElementById('topInstruction').textContent = "测验已锁定。结果已在下方生成。";
+
+        let score = 0;
+        let emailBody = "--- P4 CHINESE QUIZ RESULTS: 神奇阿宇 ---\\n\\n";
+
+        const correctDetails = [
+            { text: "湖北省恩施市", letter: "B" },
+            { text: "搜集废旧材料，并利用网上航空爱好者的捐款", letter: "B" },
+            { text: "贷款将一间废弃的棚屋改造成自己的私人实验室", letter: "C" },
+            { text: "利用热气球将一个家具齐全的客厅升到云端，并在空中煎鸡蛋、做三明治", letter: "A" },
+            { text: "因为第一个版本在测试过程中起火了", letter: "C" },
+            { text: "拒绝媒体和商业合作，专注于测试如何让滑板飞得更高", letter: "B" }
+        ];
+
+        for (let i = 0; i < 6; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected ? selected.getAttribute('data-letter') : "-";
+            const isCorrect = selected && selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+
+            if (isCorrect) {
+                score++;
+                emailBody += `Q${i + 1} 答案: ${userLetter}, 正确.\\n`;
+            } else {
+                emailBody += `Q${i + 1} 答案: ${userLetter}, 错误. 正确答案是 ${correctLetter}.\\n`;
+            }
+        }
+
+        const writtenQuestions = [
+            {
+                num: 7,
+                question: "宋星宇在2024年尝试了哪两项充满危险与挫折的高空飞行实验？",
+                modelAnswer: "2024年5月，他制造遥控飞机试图用氦气球发射到高层大气，但强风摧毁了营地和发射装置；六个月后，他身穿自制喷气动力飞行器从5000米高空跳下，主降落伞未能打开，备用伞在距地面仅600米处才险险打开。",
+                sourceParagraph3Sentences: "2024年5月,他花了22天时间制造了一架遥控飞机,并试图用氦气球将其发射到高层大气中。然而,强风摧毁了他的营地和发射装置。六个月后,他身穿自制的喷气动力飞行器,从5000米高空的直升机上跳下。"
+            },
+            {
+                num: 8,
+                question: "在那次险些丧命的跳伞事件发生前几个小时，宋星宇录下的遗嘱内容是什么？",
+                modelAnswer: "宋星宇录制的遗嘱说道：“只有做这些事，我才感觉自己真正活着。请大家不要效仿我。”",
+                sourceParagraph3Sentences: "在险些丧命的跳楼事件发生前几个小时,宋某录制了一份遗嘱:“只有做这些事,我才感觉自己真正活着。请大家不要效仿我。”"
+            },
+            {
+                num: 9,
+                question: "宋星宇最终成功制造出的悬浮滑板具备哪些令人惊叹的性能特点？",
+                modelAnswer: "这款悬浮滑板由人工智能监控，能够搭载四名成年人，并且能平稳滑翔飞越长江、崇山峻岭和城市街道，最后安全降落在峡谷中。",
+                sourceParagraph3Sentences: "他最终制造出了一款人工智能监控的悬浮滑板,能够搭载四名成年人,并在飞行前接受了严格的平衡训练。10月中国国庆节假期期间,宋在恩施完成了具有里程碑意义的试飞,滑翔越过长江、山峰和城市街道,最后安全降落在峡谷中。"
+            },
+            {
+                num: 10,
+                question: "面对研发过程中的种种艰辛与失败，宋星宇抱持着怎样的心态？从他的身上你学到了什么？",
+                modelAnswer: "他认为自己白手起家一无所有，因此不怕失败，勇敢向前才是最好的选择；表现出勇于追梦、坚韧不拔和不断挑战极限的顽强精神。",
+                sourceParagraph3Sentences: "“我白手起家,有什么好怕失败的?勇敢前进才是最好的选择,”宋说,并补充道,他希望继续挑战物理学的极限。宋在凭借悬浮滑板获得全国知名度后,据报道拒绝了媒体和商业合作,而是专注于测试如何让滑板飞得更高。"
+            }
+        ];
+
+        emailBody += "\\n--- 第二部分：问答题作答与原文参考段落 ---\\n";
+
+        for (let j = 0; j < writtenQuestions.length; j++) {
+            const wq = writtenQuestions[j];
+            const studentInput = document.getElementById(`written_${wq.num}`).value.trim();
+            emailBody += `\\nQ${wq.num}: ${wq.question}\\n`;
+            emailBody += `学生答案: ${studentInput}\\n`;
+            emailBody += `参考答案: ${wq.modelAnswer}\\n`;
+            emailBody += `原文对应段落:\\n\\"${wq.sourceParagraph3Sentences}\\"\\n`;
+        }
+
+        emailBody += `\\n选择题总得分 (TOTAL MCQ SCORE): ${score} / 6`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const cleanDisplayText = emailBody.replace(/\\\\n/g, '\\n');
+        const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent("神奇阿宇 测验结果")}&body=${encodeURIComponent(cleanDisplayText)}`;
+
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">测验完成! 选择题得分: ${score}/6</h2>
+            <p style="color: #e67e22; font-weight: bold;">答案已锁定，你无法再做更改。</p>
+            <p>你的测验结果已准备好发送至： <strong>${email}</strong>。</p>
+            <div style="margin: 15px 0;">
+                <a href="${mailtoUrl}" class="btn-action" target="_blank">📧 发送邮件给老师 (打开邮件软件)</a>
+                <button type="button" class="btn-action" onclick="copyResults()" style="background:#e67e22;">📋 复制成绩到剪贴板</button>
+            </div>
+            <textarea id="reportTextarea" readonly class="copy-box">${cleanDisplayText}</textarea>
+        `;
+
+        try {
+            window.location.href = mailtoUrl;
+        } catch (e) {
+            console.warn("Mailto launch error:", e);
+        }
+    }
+</script>
+
+</body>
+</html>

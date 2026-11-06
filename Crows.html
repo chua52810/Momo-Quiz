@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Don't mess with crows.</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 260px; margin-top: 10px; font-family: monospace; font-size: 0.85em; }
+        .btn-action { background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; border: none; cursor: pointer; margin: 5px; }
+        .btn-action:hover { background: #2980b9; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>Don't mess with crows.</h1>
+    <p class="instruction" id="topInstruction">Complete all 6 MCQs and 4 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions (6 Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. What two features does the new garbage collection station use instead of conventional nets?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A"> A) Loud sound alarms and flashing lights</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B"> B) Specially shaped wires and rotating rollers</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C"> C) Wooden boxes and heavy iron padlocks</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D"> D) Plastic sheets and robotic security cameras</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. Why have crows long been considered a major nuisance at Japanese waste collection points?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A"> A) They build large nests inside the garbage bins.</label>
+                <label><input type="radio" name="q1" value="1" data-letter="B"> B) They tear open bags and scatter food waste across streets and sidewalks.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="C"> C) They chase away sanitation workers from collection trucks.</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D"> D) They steal plastic bags to carry them into river waterways.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. What was one major complaint residents had about using conventional protective nets?</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A"> A) The nets were too brightly colored and distracted drivers.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B"> B) The nets were far too heavy for adults to lift.</label>
+                <label><input type="radio" name="q2" value="1" data-letter="C"> C) They were unpleasant to handle, especially when they became dirty or wet on rainy days.</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D"> D) The nets cost too much money to replace every month.</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. What company designed the new net-free garbage collection station?</span>
+                <label><input type="radio" name="q3" value="1" data-letter="A"> A) Flywalk, a company based in Kagoshima City</label>
+                <label><input type="radio" name="q3" value="0" data-letter="B"> B) Sumitomo Pharma</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C"> C) JR West Robotics</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D"> D) Toyo University Environmental Services</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. How long did it take to develop the system through trial and error?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A"> A) Exactly two weeks</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B"> B) Approximately three years</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C"> C) Approximately seven months, including five prototypes</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D"> D) Over ten months with twelve prototypes</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. Why has it been so difficult for Japanese urban areas to maintain conventional countermeasures against crows?</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A"> A) Crows only come out in the middle of the night.</label>
+                <label><input type="radio" name="q5" value="1" data-letter="B"> B) The birds are intelligent and adapt easily to exploit food sources.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C"> C) Japanese laws forbid putting any covers over waste.</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D"> D) Crows are too small to be blocked by fences or nets.</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions (4 Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">7. What inspired Tomohiro Nishi to create a garbage collection station that does not require handling a net?</span>
+                <textarea id="written_7" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. How do the rollers along the outer frame defend the garbage against crows?</span>
+                <textarea id="written_8" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">9. What positive changes did neighborhood residents notice after the new collection station was installed?</span>
+                <textarea id="written_9" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. Why is household waste in densely populated cities such an appealing target for crows across Japan?</span>
+                <textarea id="written_10" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqComplete = true;
+        for (let i = 0; i < 6; i++) {
+            const checkedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!checkedRadio) {
+                mcqComplete = false;
+                break;
+            }
+        }
+
+        const textareas = document.querySelectorAll('.written-input');
+        let writtenComplete = true;
+        textareas.forEach(ta => {
+            if (ta.value.trim().length === 0) {
+                writtenComplete = false;
+            }
+        });
+
+        const btn = document.getElementById('submitBtn');
+        if (mcqComplete && writtenComplete) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', checkAll);
+        radio.addEventListener('click', checkAll);
+    });
+
+    document.querySelectorAll('.written-input').forEach(ta => {
+        ta.addEventListener('input', checkAll);
+        ta.addEventListener('keyup', checkAll);
+        ta.addEventListener('change', checkAll);
+        ta.addEventListener('blur', checkAll);
+    });
+
+    function copyResults() {
+        const copyText = document.getElementById('reportTextarea');
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value).then(() => {
+            alert("Results copied to clipboard! You can paste them into an email.");
+        }).catch(() => {
+            document.execCommand('copy');
+            alert("Results copied to clipboard!");
+        });
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.classList.remove('ready');
+        btn.textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P4 ENGLISH QUIZ RESULTS: DON'T MESS WITH CROWS. ---\n\n";
+
+        const correctDetails = [
+            { text: "Specially shaped wires and rotating rollers", letter: "B" },
+            { text: "They tear open bags and scatter food waste across streets and sidewalks.", letter: "B" },
+            { text: "They were unpleasant to handle, especially when they became dirty or wet on rainy days.", letter: "C" },
+            { text: "Flywalk, a company based in Kagoshima City", letter: "A" },
+            { text: "Approximately seven months, including five prototypes", letter: "C" },
+            { text: "The birds are intelligent and adapt easily to exploit food sources.", letter: "B" }
+        ];
+
+        for (let i = 0; i < 6; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected ? selected.getAttribute('data-letter') : "-";
+            const isCorrect = selected && selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+
+            if (isCorrect) {
+                score++;
+                emailBody += `Q${i + 1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i + 1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const writtenQuestions = [
+            {
+                num: 7,
+                question: "What inspired Tomohiro Nishi to create a garbage collection station that does not require handling a net?",
+                modelAnswer: "His wife complained about how unpleasant it was to touch dirty and wet garbage nets on rainy days, which inspired him to design a system that people could use without touching a net.",
+                sourceParagraph3Sentences: "She had remarked that she disliked getting her hands dirty when lifting the net to dispose of garbage on rainy days. The comment prompted Nishi to consider whether a collection point could be designed without requiring residents to touch a net."
+            },
+            {
+                num: 8,
+                question: "How do the rollers along the outer frame defend the garbage against crows?",
+                modelAnswer: "When crows attempt to land on the frame to access the garbage bags, the rotating rollers make it hard for the birds to grip or keep their balance.",
+                sourceParagraph3Sentences: "Rollers installed along the outer frame provide an additional defense. When crows attempt to land on the structure to reach the garbage, the rotating rollers make it difficult for them to maintain their footing."
+            },
+            {
+                num: 9,
+                question: "What positive changes did neighborhood residents notice after the new collection station was installed?",
+                modelAnswer: "Crows stopped approaching the collection point, garbage was no longer found scattered across streets and sidewalks, and the whole surrounding area became noticeably cleaner.",
+                sourceParagraph3Sentences: "Residents say the change has made the surrounding streets noticeably cleaner. \"There used to be crows around, and when we came to put out the garbage, we would sometimes find it scattered everywhere. That doesn't happen anymore,\" one resident said."
+            },
+            {
+                num: 10,
+                question: "Why is household waste in densely populated cities such an appealing target for crows across Japan?",
+                modelAnswer: "Household waste provides a readily available food source, and the birds' high intelligence and adaptability make it easy for them to take advantage of urban garbage points.",
+                sourceParagraph3Sentences: "Japan has struggled for decades with crows that have learned to exploit garbage collection systems, particularly in densely populated urban areas where household waste provides a readily available food source. The birds' intelligence and ability to adapt have made conventional countermeasures difficult to maintain, creating a long-running contest between residents trying to protect their garbage and crows searching for food."
+            }
+        ];
+
+        emailBody += "\n--- PART B: WRITTEN QUESTIONS & SOURCE EXCERPTS ---\n";
+
+        for (let j = 0; j < writtenQuestions.length; j++) {
+            const wq = writtenQuestions[j];
+            const studentInput = document.getElementById(`written_${wq.num}`).value.trim();
+            emailBody += `\nQ${wq.num}: ${wq.question}\n`;
+            emailBody += `Student's Answer: ${studentInput}\n`;
+            emailBody += `Model Answer: ${wq.modelAnswer}\n`;
+            emailBody += `Source Paragraph Excerpt (First 3 Sentences):\n"${wq.sourceParagraph3Sentences}"\n`;
+        }
+
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 6`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const cleanDisplayText = emailBody.replace(/\\n/g, '\n');
+        const mailtoUrl = `mailto:${email}?subject=Don't mess with crows. Quiz Results&body=${encodeURIComponent(cleanDisplayText)}`;
+
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/6</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <div style="margin: 15px 0;">
+                <a href="${mailtoUrl}" class="btn-action" target="_blank">📧 Send to Teacher (Open Email App)</a>
+                <button type="button" class="btn-action" onclick="copyResults()" style="background:#e67e22;">📋 Copy Results to Clipboard</button>
+            </div>
+            <textarea id="reportTextarea" readonly class="copy-box">${cleanDisplayText}</textarea>
+        `;
+
+        try {
+            window.location.href = mailtoUrl;
+        } catch (e) {
+            console.warn("Mailto launch error:", e);
+        }
+    }
+</script>
+
+</body>
+</html>

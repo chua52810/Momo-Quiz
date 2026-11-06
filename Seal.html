@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Over a dead seal.</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 260px; margin-top: 10px; font-family: monospace; font-size: 0.85em; }
+        .btn-action { background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; border: none; cursor: pointer; margin: 5px; }
+        .btn-action:hover { background: #2980b9; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>Over a dead seal.</h1>
+    <p class="instruction" id="topInstruction">Complete all 6 MCQs and 4 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions (6 Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. Where was the young adult grey seal discovered before being brought to London's Natural History Museum?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A"> A) In a swimming pool in London</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B"> B) Washed up on a beach in Kent</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C"> C) Trapped inside a fishing net in Norfolk</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D"> D) Rescued by police officers in South Africa</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. How much did the seal weigh when the team placed it onto a pallet truck?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A"> A) 25kg</label>
+                <label><input type="radio" name="q1" value="1" data-letter="B"> B) 55kg</label>
+                <label><input type="radio" name="q1" value="0" data-letter="C"> C) 100kg</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D"> D) Two tonnes</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. What did the seal's spread right forelimb reveal to the researchers?</span>
+                <label><input type="radio" name="q2" value="0" data-letter="A"> A) Three sharp hooves covered in feathers</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B"> B) A smooth rubbery flipper with no bones</label>
+                <label><input type="radio" name="q2" value="1" data-letter="C"> C) Five long, clawed fingers running through a heavy furred webbing</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D"> D) Two tiny claws with no webbed skin</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. Why did Roberto Portela Miguez place tiny cubes of the seal's liver into plastic tubes?</span>
+                <label><input type="radio" name="q3" value="1" data-letter="A"> A) For the museum's frozen tissue bank, in case anyone wants to examine the seal's genome</label>
+                <label><input type="radio" name="q3" value="0" data-letter="B"> B) To feed the Komodo dragon living in the museum</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C"> C) To test whether the seal was poisoned by seawater</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D"> D) To preserve them as ancient artifacts from Captain Cook's voyage</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. What was researcher Alex McGoran specifically looking for when sieving the seal's intestinal contents?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A"> A) Intact plastic drink bottles and metal fish hooks</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B"> B) Gold coins swallowed from the seabed</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C"> C) Insidious, tiny plastic particles accumulating in aquatic animals</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D"> D) Small pebbles used by the seal to aid digestion</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. How did Travis Park plan to calculate the volume of the seal's oral cavity?</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A"> A) By filling the mouth with saltwater from a bucket</label>
+                <label><input type="radio" name="q5" value="1" data-letter="B"> B) By filling the mouth with a plastic bag and plastic beads with the tongue forward and retracted</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C"> C) By measuring the teeth using a wooden ruler</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D"> D) By taking an X-ray of the skull</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions (4 Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">7. What question about seal forelimbs were Anne-Claire Fabre and Travis Park trying to answer during the dissection?</span>
+                <textarea id="written_7" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. According to parasitologist Natalia Fraiji, why is having parasites not necessarily a sign of a sick seal?</span>
+                <textarea id="written_8" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">9. Why do scientists like Anne-Claire choose the slow and difficult work of dissecting muscles rather than just studying bones?</span>
+                <textarea id="written_9" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. How do gut-dwelling worms complete their life cycle between seals, fish, and the ocean?</span>
+                <textarea id="written_10" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqComplete = true;
+        for (let i = 0; i < 6; i++) {
+            const checkedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!checkedRadio) {
+                mcqComplete = false;
+                break;
+            }
+        }
+
+        const textareas = document.querySelectorAll('.written-input');
+        let writtenComplete = true;
+        textareas.forEach(ta => {
+            if (ta.value.trim().length === 0) {
+                writtenComplete = false;
+            }
+        });
+
+        const btn = document.getElementById('submitBtn');
+        if (mcqComplete && writtenComplete) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    // Attach event listeners to every radio and textarea dynamically
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', checkAll);
+        radio.addEventListener('click', checkAll);
+    });
+
+    document.querySelectorAll('.written-input').forEach(ta => {
+        ta.addEventListener('input', checkAll);
+        ta.addEventListener('keyup', checkAll);
+        ta.addEventListener('change', checkAll);
+        ta.addEventListener('blur', checkAll);
+    });
+
+    function copyResults() {
+        const copyText = document.getElementById('reportTextarea');
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value).then(() => {
+            alert("Results copied to clipboard! You can paste them into an email.");
+        }).catch(() => {
+            document.execCommand('copy');
+            alert("Results copied to clipboard!");
+        });
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.classList.remove('ready');
+        btn.textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P4 ENGLISH QUIZ RESULTS: OVER A DEAD SEAL. ---\n\n";
+
+        const correctDetails = [
+            { text: "Washed up on a beach in Kent", letter: "B" },
+            { text: "55kg", letter: "B" },
+            { text: "Five long, clawed fingers running through a heavy furred webbing", letter: "C" },
+            { text: "For the museum's frozen tissue bank, in case anyone wants to examine the seal's genome", letter: "A" },
+            { text: "Insidious, tiny plastic particles accumulating in aquatic animals", letter: "C" },
+            { text: "By filling the mouth with a plastic bag and plastic beads with the tongue forward and retracted", letter: "B" }
+        ];
+
+        for (let i = 0; i < 6; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected ? selected.getAttribute('data-letter') : "-";
+            const isCorrect = selected && selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+
+            if (isCorrect) {
+                score++;
+                emailBody += `Q${i + 1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i + 1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const writtenQuestions = [
+            {
+                num: 7,
+                question: "What question about seal forelimbs were Anne-Claire Fabre and Travis Park trying to answer during the dissection?",
+                modelAnswer: "They wanted to describe the muscles to determine whether a seal's forelimbs function mainly as swimming flipper paddles or as dexterous grasping paws that manipulate food.",
+                sourceParagraph3Sentences: "Anne-Claire and Travis's task is to describe the muscles that operated this limb. It's part of a project defining the degree to which seals' forelimbs are flippers - paddles with which to swim - or grasping paws that dextrously manipulate food items."
+            },
+            {
+                num: 8,
+                question: "According to parasitologist Natalia Fraiji, why is having parasites not necessarily a sign of a sick seal?",
+                modelAnswer: "She explained that 'a healthy environment is an environment for parasites,' indicating that natural parasites thrive as a normal part of a balanced, living ecosystem.",
+                sourceParagraph3Sentences: "Is it bad for seals to have worms? \"A healthy environment is an environment for parasites,\" she says, avidly describing their life-cycles as she looks for more. Her fascination is utterly infectious."
+            },
+            {
+                num: 9,
+                question: "Why do scientists like Anne-Claire choose the slow and difficult work of dissecting muscles rather than just studying bones?",
+                modelAnswer: "Most people infer movement only from bone shapes, but Anne-Claire worries about the assumptions involved in those inferences and believes scientists should directly examine the muscles whenever they are available.",
+                sourceParagraph3Sentences: "\"Muscle takes so long, not many people do it,\" Anne-Claire says. It's more common to infer the movements an animal can make from the shapes of its bones. The assumptions of such inferences worry Anne-Claire - in her view, if muscles are available, scientists should study them."
+            },
+            {
+                num: 10,
+                question: "How do gut-dwelling worms complete their life cycle between seals, fish, and the ocean?",
+                modelAnswer: "The worms breed in the seal's intestines, release eggs through its feces, and hatch into swimming larvae that infect an initial host; these hosts are eaten by fish, which are eventually eaten by seals.",
+                sourceParagraph3Sentences: "Such creatures feed on a seal's gut contents, then reach sexual maturity and breed in the seal's intestines. Their eggs exit in the faeces. Then tiny, free-living larvae swim in search of an initial host, which are then eaten by fish, which, in turn, are eaten by seals."
+            }
+        ];
+
+        emailBody += "\n--- PART B: WRITTEN QUESTIONS & SOURCE EXCERPTS ---\n";
+
+        for (let j = 0; j < writtenQuestions.length; j++) {
+            const wq = writtenQuestions[j];
+            const studentInput = document.getElementById(`written_${wq.num}`).value.trim();
+            emailBody += `\nQ${wq.num}: ${wq.question}\n`;
+            emailBody += `Student's Answer: ${studentInput}\n`;
+            emailBody += `Model Answer: ${wq.modelAnswer}\n`;
+            emailBody += `Source Paragraph Excerpt (First 3 Sentences):\n"${wq.sourceParagraph3Sentences}"\n`;
+        }
+
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 6`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const cleanDisplayText = emailBody.replace(/\\n/g, '\n');
+        const mailtoUrl = `mailto:${email}?subject=Over a dead seal. Quiz Results&body=${encodeURIComponent(cleanDisplayText)}`;
+
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/6</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <div style="margin: 15px 0;">
+                <a href="${mailtoUrl}" class="btn-action" target="_blank">📧 Send to Teacher (Open Email App)</a>
+                <button type="button" class="btn-action" onclick="copyResults()" style="background:#e67e22;">📋 Copy Results to Clipboard</button>
+            </div>
+            <textarea id="reportTextarea" readonly class="copy-box">${cleanDisplayText}</textarea>
+        `;
+
+        try {
+            window.location.href = mailtoUrl;
+        } catch (e) {
+            console.warn("Mailto launch error:", e);
+        }
+    }
+</script>
+
+</body>
+</html>
