@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SG Air-traffic controllers</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 260px; margin-top: 10px; font-family: monospace; font-size: 0.85em; }
+        .btn-action { background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; border: none; cursor: pointer; margin: 5px; }
+        .btn-action:hover { background: #2980b9; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>SG Air-traffic controllers</h1>
+    <p class="instruction" id="topInstruction">Complete all 6 MCQs and 4 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions (6 Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. What are the three specialisations that air traffic controller trainees are assigned to after their introductory course?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A"> A) Pilot, engineer, and mechanic</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B"> B) Aerodrome, area, and approach</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C"> C) Runway, baggage, and radar</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D"> D) Meteorology, law, and security</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. How long does it take in total to train an air traffic controller?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A"> A) Four months</label>
+                <label><input type="radio" name="q1" value="0" data-letter="B"> B) Six months</label>
+                <label><input type="radio" name="q1" value="1" data-letter="C"> C) About 1½ years</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D"> D) 15 years</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. What was Penny Ng's profession before she made a career switch to become an approach controller in 2017?</span>
+                <label><input type="radio" name="q2" value="1" data-letter="A"> A) An audit associate</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B"> B) A commercial airline pilot</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C"> C) A secondary school teacher</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D"> D) An aviation engineer</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. Why is Singapore planning to increase its workforce of air traffic controllers from about 500 to about 700 by the mid-2030s?</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A"> A) Because older control towers are closing down permanently</label>
+                <label><input type="radio" name="q3" value="1" data-letter="B"> B) To manage the expected increase in flights when Changi Airport Terminal 5 opens</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C"> C) Because automated computer systems are being removed</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D"> D) To send officers to work at overseas airports</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. How much sign-on bonus do new air traffic controller recruits receive under the recruitment drive?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A"> A) $49,000</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B"> B) $64,000</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C"> C) $20,000</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D"> D) $500,000</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. Besides resilience, what second key quality does Isabelle Chan believe air traffic controllers need for the future?</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A"> A) Physical strength</label>
+                <label><input type="radio" name="q5" value="1" data-letter="B"> B) Adaptability</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C"> C) An accountancy degree</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D"> D) Public speaking skills</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions (4 Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">7. According to Kathirvelu Krishnan, why are well-trained officers still essential despite advanced technology and automation?</span>
+                <textarea id="written_7" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. How do the duties of aerodrome controllers differ from those of area controllers?</span>
+                <textarea id="written_8" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">9. Why did Penny Ng decide to leave her desk-bound job to become an air traffic controller?</span>
+                <textarea id="written_9" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. What happens to the pay and career scheme of university graduates and diploma holders once they attain their air traffic controller licence?</span>
+                <textarea id="written_10" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqComplete = true;
+        for (let i = 0; i < 6; i++) {
+            const checkedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!checkedRadio) {
+                mcqComplete = false;
+                break;
+            }
+        }
+
+        const textareas = document.querySelectorAll('.written-input');
+        let writtenComplete = true;
+        textareas.forEach(ta => {
+            if (ta.value.trim().length === 0) {
+                writtenComplete = false;
+            }
+        });
+
+        const btn = document.getElementById('submitBtn');
+        if (mcqComplete && writtenComplete) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', checkAll);
+        radio.addEventListener('click', checkAll);
+    });
+
+    document.querySelectorAll('.written-input').forEach(ta => {
+        ta.addEventListener('input', checkAll);
+        ta.addEventListener('keyup', checkAll);
+        ta.addEventListener('change', checkAll);
+        ta.addEventListener('blur', checkAll);
+    });
+
+    function copyResults() {
+        const copyText = document.getElementById('reportTextarea');
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value).then(() => {
+            alert("Results copied to clipboard! You can paste them into an email.");
+        }).catch(() => {
+            document.execCommand('copy');
+            alert("Results copied to clipboard!");
+        });
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.classList.remove('ready');
+        btn.textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P4 ENGLISH QUIZ RESULTS: SG AIR-TRAFFIC CONTROLLERS ---\n\n";
+
+        const correctDetails = [
+            { text: "Aerodrome, area, and approach", letter: "B" },
+            { text: "About 1½ years", letter: "C" },
+            { text: "An audit associate", letter: "A" },
+            { text: "To manage the expected increase in flights when Changi Airport Terminal 5 opens", letter: "B" },
+            { text: "$20,000", letter: "C" },
+            { text: "Adaptability", letter: "B" }
+        ];
+
+        for (let i = 0; i < 6; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected ? selected.getAttribute('data-letter') : "-";
+            const isCorrect = selected && selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+
+            if (isCorrect) {
+                score++;
+                emailBody += `Q${i + 1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i + 1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const writtenQuestions = [
+            {
+                num: 7,
+                question: "According to Kathirvelu Krishnan, why are well-trained officers still essential despite advanced technology and automation?",
+                modelAnswer: "Technologies are only there to support the officer; no matter how sophisticated the tools become, a well-trained officer is still needed to understand the situation, exercise sound judgment, and make the necessary decisions.",
+                sourceParagraph3Sentences: "\"No matter how sophisticated the tools become, we still need a well-trained officer who can understand the situation, exercise sound judgment and make the necessary decisions.\""
+            },
+            {
+                num: 8,
+                question: "How do the duties of aerodrome controllers differ from those of area controllers?",
+                modelAnswer: "Aerodrome controllers work in control towers at Changi or Seletar airports to manage take-offs, landings, and ground movements, while area controllers handle aircraft during the en-route phase when they are flying at cruising altitudes.",
+                sourceParagraph3Sentences: "Aerodrome controllers work at the Changi or Seletar control towers, overseeing air traffic at the respective airports and managing take-offs, landings and ground movements. Area controllers, like Kathirvelu, handle aircraft during the en-route phase of their journeys, or when aircraft are flying at cruising altitudes."
+            },
+            {
+                num: 9,
+                question: "Why did Penny Ng decide to leave her desk-bound job to become an air traffic controller?",
+                modelAnswer: "She realised a traditional desk-bound job did not suit her and wanted something more operational and dynamic where every day would be different instead of sitting behind a laptop all day.",
+                sourceParagraph3Sentences: "Formerly an audit associate with a bachelor's degree in accountancy, the 34-year-old said she realised a traditional desk-bound job was not the best fit for her. \"I was looking for something more operational and dynamic, where every day would be different, and I would not be sitting behind a laptop all day.\""
+            },
+            {
+                num: 10,
+                question: "What happens to the pay and career scheme of university graduates and diploma holders once they attain their air traffic controller licence?",
+                modelAnswer: "Even though they start at different salaries during training, once they obtain their licence, all new controllers are placed on the same career scheme and receive the same pay regardless of their educational qualifications.",
+                sourceParagraph3Sentences: "Fresh university graduates now receive a starting salary of about $64,000 a year, while diploma holders start at about $49,000 a year. Upon attaining their licence, however, all new controllers are placed on the same career scheme and receive the same pay, regardless of educational qualifications."
+            }
+        ];
+
+        emailBody += "\n--- PART B: WRITTEN QUESTIONS & SOURCE EXCERPTS ---\n";
+
+        for (let j = 0; j < writtenQuestions.length; j++) {
+            const wq = writtenQuestions[j];
+            const studentInput = document.getElementById(`written_${wq.num}`).value.trim();
+            emailBody += `\nQ${wq.num}: ${wq.question}\n`;
+            emailBody += `Student's Answer: ${studentInput}\n`;
+            emailBody += `Model Answer: ${wq.modelAnswer}\n`;
+            emailBody += `Source Paragraph Excerpt (First 3 Sentences):\n"${wq.sourceParagraph3Sentences}"\n`;
+        }
+
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 6`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const cleanDisplayText = emailBody.replace(/\\n/g, '\n');
+        const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent("SG Air-traffic controllers Quiz Results")}&body=${encodeURIComponent(cleanDisplayText)}`;
+
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/6</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <div style="margin: 15px 0;">
+                <a href="${mailtoUrl}" class="btn-action" target="_blank">📧 Send to Teacher (Open Email App)</a>
+                <button type="button" class="btn-action" onclick="copyResults()" style="background:#e67e22;">📋 Copy Results to Clipboard</button>
+            </div>
+            <textarea id="reportTextarea" readonly class="copy-box">${cleanDisplayText}</textarea>
+        `;
+
+        try {
+            window.location.href = mailtoUrl;
+        } catch (e) {
+            console.warn("Mailto launch error:", e);
+        }
+    }
+</script>
+
+</body>
+</html>
