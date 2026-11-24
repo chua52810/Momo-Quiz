@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A Hippo called Fiona</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 260px; margin-top: 10px; font-family: monospace; font-size: 0.85em; }
+        .btn-action { background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; border: none; cursor: pointer; margin: 5px; }
+        .btn-action:hover { background: #2980b9; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>A Hippo called Fiona</h1>
+    <p class="instruction" id="topInstruction">Complete all 6 MCQs and 4 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions (6 Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. What object did Fiona accidentally swallow that led to her medical emergency?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A"> A) A plastic water bottle</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B"> B) A woolly knitted hat</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C"> C) A rubber ball</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D"> D) A pair of sunglasses</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. How did the visitor's hat end up inside Fiona's habitat?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A"> A) The wind blew it off a zookeeper's head</label>
+                <label><input type="radio" name="q1" value="0" data-letter="B"> B) A visitor dropped it while feeding her watermelons</label>
+                <label><input type="radio" name="q1" value="1" data-letter="C"> C) A child threw the hat in the air, and it was caught by a ceiling fan and sent flying</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D"> D) It fell out of a delivery truck passing by</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. What unusual equipment did Fiona's care team borrow from a local horse farm to help the hat pass through her digestive tract?</span>
+                <label><input type="radio" name="q2" value="1" data-letter="A"> A) A vibration plate</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B"> B) A large treadmill</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C"> C) A heated blanket</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D"> D) A feeding trough</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. How did Fiona react when the care team offered her a sniff of coffee?</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A"> A) She backed away and hid underwater</label>
+                <label><input type="radio" name="q3" value="1" data-letter="B"> B) She responded with approving grunts and ear twitches</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C"> C) She tried to bite the cup</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D"> D) She fell asleep immediately</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. Why was Fiona's birth in January 2017 special for the Cincinnati Zoo &amp; Botanical Garden?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A"> A) She was the largest hippo ever born in captivity</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B"> B) She was born on the zoo's 100th anniversary</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C"> C) She was the first Nile hippo born at the zoo in 75 years</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D"> D) She was born with white fur</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. What is the name of Fiona's younger brother who was born in 2022?</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A"> A) Bibi</label>
+                <label><input type="radio" name="q5" value="1" data-letter="B"> B) Fritz</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C"> C) Mike</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D"> D) Nile</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions (4 Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">7. What sign did Fiona show after swallowing the knitted cap last week that showed something was wrong?</span>
+                <textarea id="written_7" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. Why did the vets decide not to perform surgery on Fiona, and what alternative medical procedure did they try to retrieve the hat?</span>
+                <textarea id="written_8" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">9. What challenges did Fiona face right after she was born in January 2017?</span>
+                <textarea id="written_9" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. How did Fiona and her younger brother Fritz charm people across the world on social media?</span>
+                <textarea id="written_10" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqComplete = true;
+        for (let i = 0; i < 6; i++) {
+            const checkedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!checkedRadio) {
+                mcqComplete = false;
+                break;
+            }
+        }
+
+        const textareas = document.querySelectorAll('.written-input');
+        let writtenComplete = true;
+        textareas.forEach(ta => {
+            if (ta.value.trim().length === 0) {
+                writtenComplete = false;
+            }
+        });
+
+        const btn = document.getElementById('submitBtn');
+        if (mcqComplete && writtenComplete) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', checkAll);
+        radio.addEventListener('click', checkAll);
+    });
+
+    document.querySelectorAll('.written-input').forEach(ta => {
+        ta.addEventListener('input', checkAll);
+        ta.addEventListener('keyup', checkAll);
+        ta.addEventListener('change', checkAll);
+        ta.addEventListener('blur', checkAll);
+    });
+
+    function copyResults() {
+        const copyText = document.getElementById('reportTextarea');
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value).then(() => {
+            alert("Results copied to clipboard! You can paste them into an email.");
+        }).catch(() => {
+            document.execCommand('copy');
+            alert("Results copied to clipboard!");
+        });
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.classList.remove('ready');
+        btn.textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P4 ENGLISH QUIZ RESULTS: A HIPPO CALLED FIONA ---\n\n";
+
+        const correctDetails = [
+            { text: "A woolly knitted hat", letter: "B" },
+            { text: "A child threw the hat in the air, and it was caught by a ceiling fan and sent flying", letter: "C" },
+            { text: "A vibration plate", letter: "A" },
+            { text: "She responded with approving grunts and ear twitches", letter: "B" },
+            { text: "She was the first Nile hippo born at the zoo in 75 years", letter: "C" },
+            { text: "Fritz", letter: "B" }
+        ];
+
+        for (let i = 0; i < 6; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected ? selected.getAttribute('data-letter') : "-";
+            const isCorrect = selected && selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+
+            if (isCorrect) {
+                score++;
+                emailBody += `Q${i + 1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i + 1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const writtenQuestions = [
+            {
+                num: 7,
+                question: "What sign did Fiona show after swallowing the knitted cap last week that showed something was wrong?",
+                modelAnswer: "After ingesting the knitted cap, Fiona began to lose her appetite.",
+                sourceParagraph3Sentences: "Beloved for her antics on social media, the nine-year-old Nile hippo ingested the knitted cap last week and began to lose her appetite."
+            },
+            {
+                num: 8,
+                question: "Why did the vets decide not to perform surgery on Fiona, and what alternative medical procedure did they try to retrieve the hat?",
+                modelAnswer: "Because she was full-grown, surgery was not considered a viable option, so they tried to retrieve the hat using a 2.74-metre-long scope passed through her rectum while she was sedated.",
+                sourceParagraph3Sentences: "Because she was full-grown, surgery was not considered a viable option, and attempts to retrieve the hat with a 2.74-metre-long scope, passed through her rectum while she was sedated, were unsuccessful."
+            },
+            {
+                num: 9,
+                question: "What challenges did Fiona face right after she was born in January 2017?",
+                modelAnswer: "She was born premature and was initially unable to stand or nurse from her mother, Bibi.",
+                sourceParagraph3Sentences: "Fiona was born in January 2017, the first Nile hippo born at the Cincinnati Zoo & Botanical Garden in 75 years. She was premature and initially unable to stand or nurse from her mother, Bibi, but staged a remarkable recovery."
+            },
+            {
+                num: 10,
+                question: "How did Fiona and her younger brother Fritz charm people across the world on social media?",
+                modelAnswer: "They charmed people across the world with videos of them chomping on watermelons and wading through their water tanks surrounded by tilapia fish.",
+                sourceParagraph3Sentences: "Fiona and her younger brother Fritz, born in 2022, charmed people across the world with videos of them chomping on watermelons, wading through their water tanks surrounded by tilapia fish and reaching up for treats."
+            }
+        ];
+
+        emailBody += "\n--- PART B: WRITTEN QUESTIONS & SOURCE EXCERPTS ---\n";
+
+        for (let j = 0; j < writtenQuestions.length; j++) {
+            const wq = writtenQuestions[j];
+            const studentInput = document.getElementById(`written_${wq.num}`).value.trim();
+            emailBody += `\nQ${wq.num}: ${wq.question}\n`;
+            emailBody += `Student's Answer: ${studentInput}\n`;
+            emailBody += `Model Answer: ${wq.modelAnswer}\n`;
+            emailBody += `Source Paragraph Excerpt (First 3 Sentences):\n\"${wq.sourceParagraph3Sentences}\"\n`;
+        }
+
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 6`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const cleanDisplayText = emailBody.replace(/\\n/g, '\n');
+        const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent("A Hippo called Fiona Quiz Results")}&body=${encodeURIComponent(cleanDisplayText)}`;
+
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/6</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <div style="margin: 15px 0;">
+                <a href="${mailtoUrl}" class="btn-action" target="_blank">📧 Send to Teacher (Open Email App)</a>
+                <button type="button" class="btn-action" onclick="copyResults()" style="background:#e67e22;">📋 Copy Results to Clipboard</button>
+            </div>
+            <textarea id="reportTextarea" readonly class="copy-box">${cleanDisplayText}</textarea>
+        `;
+
+        try {
+            window.location.href = mailtoUrl;
+        } catch (e) {
+            console.warn("Mailto launch error:", e);
+        }
+    }
+</script>
+
+</body>
+</html>

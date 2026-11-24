@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>上一节课</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 25px; border-radius: 10px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 280px; margin-top: 12px; font-family: monospace; font-size: 0.9em; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; }
+        .btn-action { background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; border: none; cursor: pointer; margin: 6px; font-size: 1em; }
+        .btn-action:hover { opacity: 0.9; }
+        .paste-banner { background: #fff3cd; color: #856404; border: 2px dashed #ffc107; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 1.05em; }
+        .status-msg { font-weight: bold; margin: 10px 0; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>上一节课</h1>
+    <p class="instruction" id="topInstruction">请完成所有 6 道选择题和 4 道问答题以开启提交功能。</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">第一部分：选择题 (Part A: 6 Multiple Choice Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. 18岁女孩倍倍（真名姚璎蓓）是因为什么疾病不幸离世的？</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A"> A) 严重肺炎</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B"> B) 白血病复发</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C"> C) 心脏病发作</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D"> D) 骨癌扩散</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. 11月3日下午，老师和同学们去医院病房里为倍倍上了哪一门课？</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A"> A) 数学课</label>
+                <label><input type="radio" name="q1" value="0" data-letter="B"> B) 华文课</label>
+                <label><input type="radio" name="q1" value="1" data-letter="C"> C) 英语课</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D"> D) 美术课</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. 老师和同学们出发去医院前，老师特别交代了一句什么话？</span>
+                <label><input type="radio" name="q2" value="1" data-letter="A"> A) 平时上课什么样，到病房就什么样，别哭哭啼啼</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B"> B) 大家到了病房只要静静坐着，不要开口说话</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C"> C) 每位同学都要准备一首英文歌曲唱给倍倍听</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D"> D) 在病房里只需待五分钟就必须马上离开</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. 倍倍13岁查出白血病时，由于家里积蓄被治疗费掏空，学校是如何帮助她的？</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A"> A) 安排她免费住进大学的实验室</label>
+                <label><input type="radio" name="q3" value="1" data-letter="B"> B) 在校内发起募捐，老师带头、同学拿出零花钱，凑了7万元送到家里</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C"> C) 帮她的父母在学校食堂安排了工作</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D"> D) 免除了她高中三年的所有学费</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. 后来倍倍依靠什么医疗方式一度好转并获医生允许返校？</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A"> A) 到国外接受了最新的心脏搭桥手术</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B"> B) 每天坚持跑十公里锻炼身体</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C"> C) 父母生了一个妹妹，用妹妹出生时的脐带血做了移植</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D"> D) 喝了偏方草药三个月</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. 校长提到倍倍生前曾跟班主任表达过一个什么感人的愿望？</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A"> A) 希望父母带她去北京看升旗仪式</label>
+                <label><input type="radio" name="q5" value="0" data-letter="B"> B) 希望能出版一本自己的日记本</label>
+                <label><input type="radio" name="q5" value="1" data-letter="C"> C) 走后捐献遗体</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D"> D) 希望把自己的课本送给妹妹</label>
+            </div>
+
+            <h3 class="section-title">第二部分：问答题 (Part B: 4 Written Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">7. 11月3日下午在病房上课时，倍倍的身体状况怎样？她是如何坚持听完这节课的？</span>
+                <textarea id="written_7" class="written-input" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. 移植手术顺利返校后，倍倍是如何对待落下的功课的？最终取得了怎样的成绩？</span>
+                <textarea id="written_8" class="written-input" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">9. 11月5日同学买蛋糕去医院探望倍倍时，她的情况如何？倍倍离世后，同学小高写了什么话怀念她？</span>
+                <textarea id="written_9" class="written-input" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. 为什么文章结尾说“课上了。人走了。位置还在。”？这句话表达了老师和同学们对倍倍怎样的感情？</span>
+                <textarea id="written_10" class="written-input" placeholder="请用完整的句子写出你的答案..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">提交结果</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+    let globalFullReport = "";
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqComplete = true;
+        for (let i = 0; i < 6; i++) {
+            const checkedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!checkedRadio) {
+                mcqComplete = false;
+                break;
+            }
+        }
+
+        const textareas = document.querySelectorAll('.written-input');
+        let writtenComplete = true;
+        textareas.forEach(ta => {
+            if (ta.value.trim().length === 0) {
+                writtenComplete = false;
+            }
+        });
+
+        const btn = document.getElementById('submitBtn');
+        if (mcqComplete && writtenComplete) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', checkAll);
+        radio.addEventListener('click', checkAll);
+    });
+
+    document.querySelectorAll('.written-input').forEach(ta => {
+        ta.addEventListener('input', checkAll);
+        ta.addEventListener('keyup', checkAll);
+        ta.addEventListener('change', checkAll);
+        ta.addEventListener('blur', checkAll);
+    });
+
+    function copyFullReport(showAlert = true) {
+        const copyText = document.getElementById('reportTextarea');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(globalFullReport).then(() => {
+                if (showAlert) alert("✅ 完整成绩单已复制到剪贴板！请在邮件正文按 Ctrl+V 粘贴。");
+            }).catch(() => {
+                copyText.select();
+                document.execCommand('copy');
+                if (showAlert) alert("✅ 完整成绩单已复制到剪贴板！请在邮件正文按 Ctrl+V 粘贴。");
+            });
+        } else {
+            copyText.select();
+            document.execCommand('copy');
+            if (showAlert) alert("✅ 完整成绩单已复制到剪贴板！请在邮件正文按 Ctrl+V 粘贴。");
+        }
+    }
+
+    function sendDirectEmail() {
+        const statusEl = document.getElementById('postStatus');
+        statusEl.style.color = "#d35400";
+        statusEl.textContent = "⏳ 正在直接发送完整成绩单到老师邮箱...";
+
+        fetch("https://formsubmit.co/ajax/chua52810@gmail.com", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                _subject: "P4华文测验结果: 上一节课",
+                quiz_title: "上一节课",
+                full_results: globalFullReport
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success === "true" || data.success === true) {
+                statusEl.style.color = "#27ae60";
+                statusEl.textContent = "✅ 完整成绩单已通过云端直接发送至 chua52810@gmail.com！";
+            } else {
+                statusEl.style.color = "#e67e22";
+                statusEl.textContent = "ℹ️ 首次使用云端直发需老师在邮箱点击激活邮件；请同时使用下方邮件粘贴方式发送。";
+            }
+        })
+        .catch(() => {
+            statusEl.style.color = "#e67e22";
+            statusEl.textContent = "ℹ️ 请在打开的邮件窗口中按 Ctrl+V 粘贴完整成绩单并发送。";
+        });
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.classList.remove('ready');
+        btn.textContent = "已提交";
+        document.getElementById('topInstruction').textContent = "测验已锁定。结果已在下方生成。";
+
+        let score = 0;
+        let fullReport = "--- P4 CHINESE QUIZ RESULTS: 上一节课 ---\n\n";
+
+        const correctDetails = [
+            { text: "白血病复发", letter: "B" },
+            { text: "英语课", letter: "C" },
+            { text: "平时上课什么样，到病房就什么样，别哭哭啼啼", letter: "A" },
+            { text: "在校内发起募捐，老师带头、同学拿出零花钱，凑了7万元送到家里", letter: "B" },
+            { text: "父母生了一个妹妹，用妹妹出生时的脐带血做了移植", letter: "C" },
+            { text: "走后捐献遗体", letter: "C" }
+        ];
+
+        for (let i = 0; i < 6; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected ? selected.getAttribute('data-letter') : "-";
+            const isCorrect = selected && selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+
+            if (isCorrect) {
+                score++;
+                fullReport += `Q${i + 1} 答案: ${userLetter}, 正确.\n`;
+            } else {
+                fullReport += `Q${i + 1} 答案: ${userLetter}, 错误. 正确答案是 ${correctLetter}.\n`;
+            }
+        }
+
+        const writtenQuestions = [
+            {
+                num: 7,
+                question: "11月3日下午在病房上课时，倍倍的身体状况怎样？她是如何坚持听完这节课的？",
+                modelAnswer: "那天倍倍发着烧，鼻血止不住，骨头一阵阵地疼，但她靠着止痛药勉强稳住，脸上努力挂着笑，跟着节奏轻声跟读单词，硬撑着听到了最后。",
+                sourceParagraph3Sentences: "可那天的倍倍状态已经很差了。发着烧,鼻血止不住,骨头一阵阵地疼。她靠着止痛药勉强稳住,脸上却努力挂着笑,跟着节奏轻声跟读单词。"
+            },
+            {
+                num: 8,
+                question: "移植手术顺利返校后，倍倍是如何对待落下的功课的？最终取得了怎样的成绩？",
+                modelAnswer: "她比谁都珍惜坐在教室里的机会，从头捡起落下的功课，日复一日咬牙追赶，最终成绩稳稳冲到了班级前三。",
+                sourceParagraph3Sentences: "回到班里的倍倍,比谁都珍惜坐在教室里的机会。几年的治疗落下了大量功课,别人滚瓜烂熟的内容,她得从头捡起来。日复一日咬牙追赶,成绩稳稳冲到了班级前三,人缘也好。"
+            },
+            {
+                num: 9,
+                question: "11月5日同学买蛋糕去医院探望倍倍时，她的情况如何？倍倍离世后，同学小高写了什么话怀念她？",
+                modelAnswer: "11月5日同学带蛋糕去医院时，倍倍已经说不出太多话，只能以点头回应；她离世后，小高写下：“我好希望能回来管我，喊我做作业，喊我背书，好好休息吧，晚安。”",
+                sourceParagraph3Sentences: "11月5日,同学买了蛋糕去医院。倍倍之前随口提过想吃蛋糕。可那天她已经说不出太多话,只能以点头回应。"
+            },
+            {
+                num: 10,
+                question: "为什么文章结尾说“课上了。人走了。位置还在。”？这句话表达了老师和同学们对倍倍怎样的感情？",
+                modelAnswer: "因为老师和同学们实现了倍倍在病床上再上一节课的心愿，虽然她已经离世，但教室里依然保留着她的课桌座位，表达了大家对她深深的思念、敬佩与永不遗忘的同窗情谊。",
+                sourceParagraph3Sentences: "倍倍的课桌上,同学还留着她的位置。小高说,希望她回来管人、催作业、喊背书。这些话听着平常,放在一个18岁就停下来的生命面前,每一句都沉。"
+            }
+        ];
+
+        fullReport += "\n--- 第二部分：问答题作答与原文参考段落 ---\n";
+
+        for (let j = 0; j < writtenQuestions.length; j++) {
+            const wq = writtenQuestions[j];
+            const studentInput = document.getElementById(`written_${wq.num}`).value.trim();
+            fullReport += `\nQ${wq.num}: ${wq.question}\n`;
+            fullReport += `学生答案: ${studentInput}\n`;
+            fullReport += `参考答案: ${wq.modelAnswer}\n`;
+            fullReport += `原文对应段落:\n\"${wq.sourceParagraph3Sentences}\"\n`;
+        }
+
+        fullReport += `\n选择题总得分 (TOTAL MCQ SCORE): ${score} / 6`;
+
+        globalFullReport = fullReport.replace(/\\n/g, '\n');
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+
+        const shortPrompt = `【系统提示：完整成绩单（含全部选择题、问答题完整作答、参考答案及原文段落）已自动复制到剪贴板！】\n\n👉 请直接在此处按 Ctrl+V（或右键选择“粘贴”）粘贴完整成绩单，然后点击发送即可。`.replace(/\\n/g, '\n');
+        const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(`上一节课 测验结果 (选择题: ${score}/6)`)}&body=${encodeURIComponent(shortPrompt)}`;
+
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">测验完成! 选择题得分: ${score}/6</h2>
+            <p style="color: #e67e22; font-weight: bold;">答案已锁定，你无法再做更改。</p>
+            <div class="paste-banner">
+                <strong>✅ 完整成绩单已自动复制到剪贴板（一字不漏）！</strong><br>
+                在打开的邮件窗口中，只需按 <strong>Ctrl + V</strong>（或右键点击“粘贴”），即可将完整成绩单粘贴到邮件正文发送给老师！
+            </div>
+            <p id="postStatus" class="status-msg"></p>
+            <div style="margin: 15px 0;">
+                <a href="${mailtoUrl}" class="btn-action" onclick="copyFullReport(false)">📧 打开邮件软件 (按 Ctrl+V 粘贴发送)</a>
+                <button type="button" class="btn-action" onclick="sendDirectEmail()" style="background:#27ae60;">🚀 云端一键直发老师邮箱</button>
+                <button type="button" class="btn-action" onclick="copyFullReport(true)" style="background:#e67e22;">📋 重新复制完整成绩单</button>
+            </div>
+            <textarea id="reportTextarea" readonly class="copy-box">${globalFullReport}</textarea>
+        `;
+
+        copyFullReport(false);
+        sendDirectEmail();
+
+        try {
+            window.location.href = mailtoUrl;
+        } catch (e) {
+            console.warn("Mailto launch error:", e);
+        }
+    }
+</script>
+
+</body>
+</html>

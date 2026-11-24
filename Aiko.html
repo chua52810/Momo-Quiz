@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Princess Aiko</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f0f4f8; }
+        .quiz-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #f1c40f; padding-bottom: 15px; }
+        .instruction { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
+        .section-title { color: #d35400; border-bottom: 1px solid #fae5d3; margin-top: 40px; }
+        .question-block { margin-bottom: 35px; padding: 20px; background: #fafafa; border-radius: 10px; border-left: 6px solid #f1c40f; }
+        .q-text { font-weight: bold; font-size: 1.1em; color: #34495e; display: block; margin-bottom: 15px; }
+        label { display: block; background: white; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        label:hover { background: #fef9e7; border-color: #f1c40f; }
+        input[type="radio"] { margin-right: 15px; transform: scale(1.2); }
+        textarea { width: 100%; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: none; }
+        
+        #submitBtn {
+            width: 100%; padding: 20px; font-size: 1.2em; font-weight: bold; border: none; border-radius: 8px;
+            background-color: #bdc3c7; color: white; cursor: not-allowed; transition: 0.3s; margin-top: 20px;
+        }
+        #submitBtn.ready { background-color: #27ae60 !important; cursor: pointer !important; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
+        #submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #results { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; border: 2px solid #27ae60; background-color: #f9fffb; text-align: center; }
+        .copy-box { width: 100%; height: 260px; margin-top: 10px; font-family: monospace; font-size: 0.85em; }
+        .btn-action { background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; border: none; cursor: pointer; margin: 5px; }
+        .btn-action:hover { background: #2980b9; }
+        
+        .locked { pointer-events: none; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h1>Princess Aiko</h1>
+    <p class="instruction" id="topInstruction">Complete all 6 MCQs and 4 written questions to enable submission.</p>
+
+    <form id="quizForm">
+        <div id="questionsContainer">
+            <h3 class="section-title">Part A: Multiple Choice Questions (6 Questions)</h3>
+            
+            <div class="question-block">
+                <span class="q-text">1. What milestone does Princess Aiko's five-day official visit to Singapore commemorate?</span>
+                <label><input type="radio" name="q0" value="0" data-letter="A"> A) The 40th anniversary of the Osaka World Expo</label>
+                <label><input type="radio" name="q0" value="1" data-letter="B"> B) The 60th anniversary of the establishment of diplomatic relations between Singapore and Japan</label>
+                <label><input type="radio" name="q0" value="0" data-letter="C"> C) The 50th anniversary of the Singapore Botanic Gardens</label>
+                <label><input type="radio" name="q0" value="0" data-letter="D"> D) The 20th anniversary of the free trade agreement</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">2. What is Singapore's current ranking among Japan's largest foreign direct investors?</span>
+                <label><input type="radio" name="q1" value="0" data-letter="A"> A) First largest</label>
+                <label><input type="radio" name="q1" value="0" data-letter="B"> B) Second largest</label>
+                <label><input type="radio" name="q1" value="1" data-letter="C"> C) Third largest</label>
+                <label><input type="radio" name="q1" value="0" data-letter="D"> D) Fourth largest</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">3. What plants did Princess Aiko's grandparents plant at the Japanese Garden in Jurong Lake five years after Singapore's independence?</span>
+                <label><input type="radio" name="q2" value="1" data-letter="A"> A) Two King Sago Palms</label>
+                <label><input type="radio" name="q2" value="0" data-letter="B"> B) A new orchid hybrid</label>
+                <label><input type="radio" name="q2" value="0" data-letter="C"> C) Japanese cherry blossom trees</label>
+                <label><input type="radio" name="q2" value="0" data-letter="D"> D) Bamboo groves</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">4. What special honour will Princess Aiko receive during her visit to the Singapore Botanic Gardens?</span>
+                <label><input type="radio" name="q3" value="0" data-letter="A"> A) She will receive a medal for international trade</label>
+                <label><input type="radio" name="q3" value="1" data-letter="B"> B) A new orchid hybrid will be named in her honour</label>
+                <label><input type="radio" name="q3" value="0" data-letter="C"> C) She will open a new museum wing</label>
+                <label><input type="radio" name="q3" value="0" data-letter="D"> D) She will host a cooking demonstration of Japanese food</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">5. How many Singaporeans visited Japan in 2025?</span>
+                <label><input type="radio" name="q4" value="0" data-letter="A"> A) About 50,000</label>
+                <label><input type="radio" name="q4" value="0" data-letter="B"> B) Over 200,000</label>
+                <label><input type="radio" name="q4" value="1" data-letter="C"> C) Over 720,000, the equivalent of one in every five Singaporeans</label>
+                <label><input type="radio" name="q4" value="0" data-letter="D"> D) Over one million</label>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">6. What did Princess Aiko write when she visited the Singapore Pavilion at the Osaka World Expo in 2025?</span>
+                <label><input type="radio" name="q5" value="0" data-letter="A"> A) A recipe for her favourite Japanese dish</label>
+                <label><input type="radio" name="q5" value="1" data-letter="B"> B) A "simple but profound" wish for world peace</label>
+                <label><input type="radio" name="q5" value="0" data-letter="C"> C) A poem about the King Sago Palms</label>
+                <label><input type="radio" name="q5" value="0" data-letter="D"> D) A list of landmarks she wanted to see in Singapore</label>
+            </div>
+
+            <h3 class="section-title">Part B: Written Answer Questions (4 Questions)</h3>
+
+            <div class="question-block">
+                <span class="q-text">7. How did early investments by Japanese companies in the 1960s help Singapore's economic development?</span>
+                <textarea id="written_7" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">8. Why did President Tharman say the continued growth of the King Sago Palms was significant?</span>
+                <textarea id="written_8" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">9. According to President Tharman, how must peace be sustained between nations?</span>
+                <textarea id="written_9" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <span class="q-text">10. What did Princess Aiko say about World War II and how it relates to the friendship between Japan and Singapore today?</span>
+                <textarea id="written_10" class="written-input" placeholder="Write your answer in complete sentences here..."></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" disabled onclick="submitQuiz()">Submit results</button>
+    </form>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let isSubmitted = false;
+
+    function checkAll() {
+        if (isSubmitted) return;
+
+        let mcqComplete = true;
+        for (let i = 0; i < 6; i++) {
+            const checkedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!checkedRadio) {
+                mcqComplete = false;
+                break;
+            }
+        }
+
+        const textareas = document.querySelectorAll('.written-input');
+        let writtenComplete = true;
+        textareas.forEach(ta => {
+            if (ta.value.trim().length === 0) {
+                writtenComplete = false;
+            }
+        });
+
+        const btn = document.getElementById('submitBtn');
+        if (mcqComplete && writtenComplete) {
+            btn.disabled = false;
+            btn.classList.add('ready');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('ready');
+        }
+    }
+
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', checkAll);
+        radio.addEventListener('click', checkAll);
+    });
+
+    document.querySelectorAll('.written-input').forEach(ta => {
+        ta.addEventListener('input', checkAll);
+        ta.addEventListener('keyup', checkAll);
+        ta.addEventListener('change', checkAll);
+        ta.addEventListener('blur', checkAll);
+    });
+
+    function copyResults() {
+        const copyText = document.getElementById('reportTextarea');
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value).then(() => {
+            alert("Results copied to clipboard! You can paste them into an email.");
+        }).catch(() => {
+            document.execCommand('copy');
+            alert("Results copied to clipboard!");
+        });
+    }
+
+    function submitQuiz() {
+        if (isSubmitted) return;
+        isSubmitted = true;
+
+        document.getElementById('questionsContainer').classList.add('locked');
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.classList.remove('ready');
+        btn.textContent = "Submitted";
+        document.getElementById('topInstruction').textContent = "Quiz locked. Results generated below.";
+
+        let score = 0;
+        let emailBody = "--- P4 ENGLISH QUIZ RESULTS: PRINCESS AIKO ---\n\n";
+
+        const correctDetails = [
+            { text: "The 60th anniversary of the establishment of diplomatic relations between Singapore and Japan", letter: "B" },
+            { text: "Third largest", letter: "C" },
+            { text: "Two King Sago Palms", letter: "A" },
+            { text: "A new orchid hybrid will be named in her honour", letter: "B" },
+            { text: "Over 720,000, the equivalent of one in every five Singaporeans", letter: "C" },
+            { text: "A \"simple but profound\" wish for world peace", letter: "B" }
+        ];
+
+        for (let i = 0; i < 6; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const userLetter = selected ? selected.getAttribute('data-letter') : "-";
+            const isCorrect = selected && selected.value === "1";
+            const correctLetter = correctDetails[i].letter;
+
+            if (isCorrect) {
+                score++;
+                emailBody += `Q${i + 1} answer: ${userLetter}, correct.\n`;
+            } else {
+                emailBody += `Q${i + 1} answer: ${userLetter}, wrong. Correct answer is ${correctLetter}.\n`;
+            }
+        }
+
+        const writtenQuestions = [
+            {
+                num: 7,
+                question: "How did early investments by Japanese companies in the 1960s help Singapore's economic development?",
+                modelAnswer: "They created jobs at scale (including for women in manufacturing), helped Singapore acquire skills and develop its own capabilities, and enabled local entrepreneurs who supplied Japanese firms to later venture abroad themselves.",
+                sourceParagraph3Sentences: "At the Istana Villa event, the President said the two countries have come a long way together, with Japanese companies among the earliest to invest in Singapore in the 1960s and create jobs at scale here, including for women in manufacturing. Those early investments helped Singapore to climb the ladder in economic development by acquiring skills and developing its own capabilities. Many local entrepreneurs who earned their spurs as suppliers to Japanese multinational companies eventually ventured abroad themselves."
+            },
+            {
+                num: 8,
+                question: "Why did President Tharman say the continued growth of the King Sago Palms was significant?",
+                modelAnswer: "He said their continued growth was a quiet symbol of how the bilateral relationship between Singapore and Japan had developed and flourished.",
+                sourceParagraph3Sentences: "When they returned to Singapore in 2006 as emperor and empress to commemorate 40 years of diplomatic ties, the royal couple took the opportunity to see the cycad plants. Their continued growth was a quiet symbol of how the bilateral relationship had developed and flourished, said the President."
+            },
+            {
+                num: 9,
+                question: "According to President Tharman, how must peace be sustained between nations?",
+                modelAnswer: "Peace cannot be taken for granted and has to be sustained by consistently upholding international law and investing in mutual understanding and cooperation.",
+                sourceParagraph3Sentences: "\"We know too that peace cannot be taken for granted. It has to be sustained by consistently upholding international law, and investing in mutual understanding and cooperation,\" he said."
+            },
+            {
+                num: 10,
+                question: "What did Princess Aiko say about World War II and how it relates to the friendship between Japan and Singapore today?",
+                modelAnswer: "She said it must not be forgotten that precious lives were lost and hardships endured in Singapore during the war, and that today's friendship and mutual understanding are built upon the devotion and wisdom of predecessors who reflected on the past.",
+                sourceParagraph3Sentences: "\"When we look back on our shared journey, it must not be forgotten that precious lives were lost and various hardships were endured in Singapore during the war,\" she said in reference to World War II. \"Reflecting on the past and bearing in mind that the very foundation of friendship and mutual understanding we enjoy today is built upon the devotion and wisdom demonstrated by our predecessors over the years, it is my sincere desire to see our bonds deepen further in the years to come.\""
+            }
+        ];
+
+        emailBody += "\n--- PART B: WRITTEN QUESTIONS & SOURCE EXCERPTS ---\n";
+
+        for (let j = 0; j < writtenQuestions.length; j++) {
+            const wq = writtenQuestions[j];
+            const studentInput = document.getElementById(`written_${wq.num}`).value.trim();
+            emailBody += `\nQ${wq.num}: ${wq.question}\n`;
+            emailBody += `Student's Answer: ${studentInput}\n`;
+            emailBody += `Model Answer: ${wq.modelAnswer}\n`;
+            emailBody += `Source Paragraph Excerpt (First 3 Sentences):\n\"${wq.sourceParagraph3Sentences}\"\n`;
+        }
+
+        emailBody += `\nTOTAL MCQ SCORE: ${score} / 6`;
+
+        const resDiv = document.getElementById('results');
+        resDiv.style.display = 'block';
+        const email = "chua52810@gmail.com";
+        const cleanDisplayText = emailBody.replace(/\\n/g, '\n');
+        const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent("Princess Aiko Quiz Results")}&body=${encodeURIComponent(cleanDisplayText)}`;
+
+        resDiv.innerHTML = `
+            <h2 style="color: #27ae60;">Quiz Complete! MCQ Score: ${score}/6</h2>
+            <p style="color: #e67e22; font-weight: bold;">Answers are now locked. You cannot change them.</p>
+            <p>Your results have been prepared for <strong>${email}</strong>.</p>
+            <div style="margin: 15px 0;">
+                <a href="${mailtoUrl}" class="btn-action" target="_blank">📧 Send to Teacher (Open Email App)</a>
+                <button type="button" class="btn-action" onclick="copyResults()" style="background:#e67e22;">📋 Copy Results to Clipboard</button>
+            </div>
+            <textarea id="reportTextarea" readonly class="copy-box">${cleanDisplayText}</textarea>
+        `;
+
+        try {
+            window.location.href = mailtoUrl;
+        } catch (e) {
+            console.warn("Mailto launch error:", e);
+        }
+    }
+</script>
+
+</body>
+</html>
